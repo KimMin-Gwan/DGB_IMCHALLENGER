@@ -20,7 +20,11 @@ class DefaultTheme{
   Color menuDefaultColor = Color(0xff8f8288);
   Color menuDefaultStokeColor = Color(0xff787276);
   Color mainGrayColor = Colors.grey;
+  Color topContainerColor = Color(0xffe1f2fc);
+  Color mainContainerColor = Color(0xffd1ecff);
 
+  Color getTopContainerColor() => topContainerColor;
+  Color getMainContainerColor() => mainContainerColor;
   Color getRealWhite() => realWhite;
   Color getRealBlack() => realBlack;
   Color getMainWhite() => mainWhiteColor;
@@ -33,31 +37,48 @@ class DefaultTheme{
 
 // Theme를 상속하여 기본 색깔은 유지하되 추가적인 색깔을 쓸것
 class HomeScaffoldTheme extends DefaultTheme{
-  Color _widgetBoxGrayColor = Color(0xff393939).withOpacity(0.8);
+  Color _widgetBoxGrayColor = Color(0xff393939).withOpacity(0.6);
   ButtonStyle _simpleButton = ButtonStyle();
   TextStyle _levelTextStyle = TextStyle();
+  BoxDecoration _containerDecoration = BoxDecoration();
+  Color _percentBarColor = Color(0xffe96c6c);
+  Color _settingColor = Color(0xff9f9299);
+  Color _questColor = Color(0xffefc659);
+  Color _eventColor = Color(0xff8cdb42);
+
 
   // 아래는 생성자
   HomeScaffoldTheme(){
     // 여기서 정의해주면 됨
     _simpleButton = ElevatedButton.styleFrom(
-      minimumSize: Size(100, 50),
       backgroundColor: getMainGrayColor(),
       surfaceTintColor: getRealWhite(),
       foregroundColor: getRealWhite(),
       shape : RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(200)
       ),
       shadowColor: getRealBlack(),
     ); // ; 잊지말것
-    _levelTextStyle = TextStyle(fontSize: 12, color: getRealBlack());
+    _levelTextStyle = TextStyle(fontSize: 27, color: getRealBlack(), fontWeight: FontWeight.w800);
+    _containerDecoration = BoxDecoration(
+      color: getWidgetBoxGrayColor(),
+      borderRadius: BorderRadius.circular(8),
+    );
+
 
   }// 생성자는 인스턴스 생성할 때 실행됨
 
   // 아래는 접근자
+  Color getSettingColor() => _settingColor;
+  Color getQuestColor() => _questColor;
+  Color getEventColor() => _eventColor;
+
   Color getWidgetBoxGrayColor() => _widgetBoxGrayColor;
+  Color getPercentBarColor() => _percentBarColor;
   ButtonStyle getSimpleButtonStyle() => _simpleButton;
   TextStyle getlevelTextStyle() => _levelTextStyle;
+  BoxDecoration getContainerDecoration() => _containerDecoration;
+
 
 }
 
