@@ -32,20 +32,6 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     // 본문 위젯
     return Scaffold(
-      /*
-      appBar: AppBar(
-        backgroundColor: _style.getMainWhite(),
-        foregroundColor: _style.getMainWhite(),
-        elevation: 0,
-
-        actions: [
-          IconButton(
-           icon: Icon(Icons.menu, color: _style.getMenuDefaultColor()),
-            onPressed: (){},
-          )
-        ]
-      ),
-       */
       body: HomeBodyWidget(),
     );
   }
@@ -87,30 +73,8 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
             children:[
               topButtonWidget(queryWidth, queryHeight),
               topBodyWidget(queryWidth, queryHeight), //길어져서 뜯어버림
-              Container( //중단
-                height: queryHeight * 0.6,  //전체 새로 길이중 60%
-                width: queryWidth,
-                color: Colors.green,
-                // child : Container() // 단디가 등장할 부분을 그려야됨
-              ),
-              Container( //하단
-                  height: queryHeight * 0.2,  //전체 새로 길이중 20%
-                  width: queryWidth,
-                  child: Row(
-                    children: [
-                      Container(
-                        child: Column( // 하단 상태 표시줄
-                          children: [
-                            Container(), // 자동 증가량
-                            Container() // 하트 저장량
-                          ],
-                        ),
-                      ),
-                      Container( //퀴즈 버튼
-                    )
-                    ],
-                  )
-                )
+              mainTable(queryWidth, queryHeight),
+              bottomWidget(queryWidth, queryHeight),
             ]
           )
         ]
@@ -118,92 +82,47 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
     );
   }
 
-  // 위 본문에 적으면 복잡해서 때어 낸 탑 부분
-  // 나머지 미들과 바텀도 나중에 뜯어낼 것임
-  Widget topBodyWidget(width, height){
-    return Container( //상단
-      alignment: Alignment.centerLeft,
-      height: height * 0.1,  //전체 새로 길이중 10%
-      width: width,
-      color: Colors.blue,
-      child: Container( // 레벨 및 경험치 박스
-        margin: EdgeInsets.only(left: 15, top: 2, bottom: 2),
-        decoration: _style.getContainerDecoration(),
-        width: width * 0.42,
-        height: height * 0.07,
-        // 레벨 데이터를 넣어야되는 데 일단은 그냥 상수값 때려박음
-        child : levelWidget(width*0.42, height*0.07)
-      )
-    );
-  }
 
-  // 레벨 과 진행바
-  Widget levelWidget(width, height){
-    return Column(
-      children: [
-        Container(
-          alignment: Alignment.centerLeft,
-          margin:  EdgeInsets.only(left: 20),
-          height: height * 0.7,
-          child: Text('Lv. 11', style: _style.getlevelTextStyle()),
-        ),
-        Container(
-          alignment:Alignment.centerLeft,
-          height: height * 0.3,
-          width: width,
-          margin: EdgeInsets.only(left:10),
-          child: LinearPercentIndicator(
-            width: width * 0.9,
-            lineHeight: height * 0.05,
-            percent: 0.9,
-            progressColor: _style.getPercentBarColor(),
-          )
-        )
-      ]
-    );
-  }
-
+  //---------------------------------------------------------
   // 최상단 버튼
   Widget topButtonWidget(width, height){
     return Container( //최상단
-      alignment: Alignment.centerRight,
-      width: width,
-      height: height * 0.07,
-      color: Colors.redAccent,
-      /*
-      child: Container( // 최상단 좌측
-        width: width * 0.4,
+        alignment: Alignment.centerRight,
+        width: width,
         height: height * 0.07,
-        color: Colors.green,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:[
-            eventButton(width*0.3, height * 0.07),
-            questButton(width*0.3, height * 0.07),
-            settingButton(width*0.3, height * 0.07),
-          ]
+        //color: Colors.redAccent,
+        child: Container( // 최상단 좌측
+            width: width * 0.4,
+            height: height * 0.07,
+            //color: Colors.green,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:[
+                  eventButton(width*0.3, height * 0.07),
+                  questButton(width*0.3, height * 0.07),
+                  settingButton(width*0.3, height * 0.07),
+                ]
+            )
         )
-      )
-       */
     );
   }
 
   Widget settingButton(width, height,) {
     return Container(
-      margin: EdgeInsets.only(left: 2, right: 2),
-      alignment: Alignment.center,
-      width: width * 0.36,
-      height: width * 0.36,
-      //color: Colors.blue,
-      child:IconButton(
-        icon: FaIcon(FontAwesomeIcons.cog, color: _style.getRealWhite(),),
-        iconSize: width * 0.18,
-        style: IconButton.styleFrom(
-          backgroundColor: _style.getSettingColor(),
-          shadowColor: Colors.black,
-        ),
-        onPressed: (){},
-      )
+        margin: EdgeInsets.only(left: 2, right: 2),
+        alignment: Alignment.center,
+        width: width * 0.36,
+        height: width * 0.36,
+        //color: Colors.blue,
+        child:IconButton(
+          icon: FaIcon(FontAwesomeIcons.cog, color: _style.getRealWhite(),),
+          iconSize: width * 0.18,
+          style: IconButton.styleFrom(
+            backgroundColor: _style.getSettingColor(),
+            shadowColor: Colors.black,
+          ),
+          onPressed: (){},
+        )
     );
   }
 
@@ -244,5 +163,118 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
         )
     );
   }
+
+  // --------------------------------------------------------------------------------
+  // 상단
+  Widget topBodyWidget(width, height){
+    return Container( //상단
+      alignment: Alignment.centerLeft,
+      height: height * 0.1,  //전체 새로 길이중 10%
+      width: width,
+      //color: Colors.blue,
+      child: Container( // 레벨 및 경험치 박스
+        margin: EdgeInsets.only(left: 15, top: 2, bottom: 2),
+        decoration: _style.getContainerDecoration(),
+        width: width * 0.42,
+        height: height * 0.07,
+        // 레벨 데이터를 넣어야되는 데 일단은 그냥 상수값 때려박음
+        child : levelWidget(width*0.42, height*0.07)
+      )
+    );
+  }
+
+  // 레벨 과 진행바
+  Widget levelWidget(width, height){
+    return Column(
+      children: [
+        Container(
+          alignment: Alignment.centerLeft,
+          margin:  EdgeInsets.only(left: 20),
+          height: height * 0.7,
+          child: Text('Lv. 11', style: _style.getlevelTextStyle()),
+        ),
+        Container(
+          alignment:Alignment.centerLeft,
+          height: height * 0.3,
+          width: width,
+          margin: EdgeInsets.only(left:10),
+          child: LinearPercentIndicator(
+            width: width * 0.9,
+            lineHeight: height * 0.05,
+            percent: 0.9,
+            progressColor: _style.getPercentBarColor(),
+          )
+        )
+      ]
+    );
+  }
+
+  // 중단
+  Widget mainTable(width, height){
+    return Container(
+      height: height * 0.7,  //전체 새로 길이중 60%
+      width: width,
+      //color: Colors.green,
+      // child : Container() // 단디가 등장할 부분을 그려야됨
+    );
+  }
+
+
+  Widget bottomWidget(width, height){
+    return Container( //하단
+      height: height * 0.1,  //전체 새로 길이중 20%
+      width: width,
+      child: Row(
+        children: [
+          Container(
+            width: width * 0.6,
+            height : height * 0.08,
+            child: Column(
+              children: [
+                autoExpTable(width, height),
+                autoExpTable(width, height)
+              ],
+            )
+          ),
+          quizButton(width, height),
+        ]
+      )
+    );
+  }
+
+  Widget quizButton(width, height){
+    return SizedBox(
+      width: width * 0.3,
+      height: height * 0.08,
+      child:ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: _style.getWidgetBoxGrayColor(),
+        ),
+        child: Container(
+          width: width * 0.2,
+          height: height * 0.05,
+          child:Text("QUIZ", style: _style.getlevelTextStyle()),
+        ),
+        onPressed: (){},
+      )
+    );
+  }
+
+  Widget heartTable(width, height){
+    return Container(
+
+    );
+  }
+
+  Widget autoExpTable(width, height){
+    return Container(
+      margin: EdgeInsets.all(3),
+      width: width * 0.5,
+      height: height * 0.03,
+      decoration: _style.getContainerDecoration(),
+    );
+  }
+
+
 }
 

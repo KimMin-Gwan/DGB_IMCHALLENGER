@@ -36,12 +36,10 @@ class _SettingWidgetState extends State<SettingWidget> {
     // 세로 최대 길이를 1200으로  한정
     if (queryWidth > maxHeight) {queryWidth = maxHeight; }
 
-
-    return Container(
-      color: _style.getMainWhite(),  // 이런식으로 색깔 지정
-      width: queryWidth, // 화면 가로 길이 받아온걸로 지정
-      height: queryHeight, // 화면 높이 받아온걸로 지정
-      child: Container()  // 이런식으로 child 추가해 나갈것
-    );
+    return Container();
   }
 }
+
+
+
+
