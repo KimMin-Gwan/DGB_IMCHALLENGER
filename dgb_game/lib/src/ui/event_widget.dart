@@ -38,6 +38,7 @@ class _EventWidgetState extends State<EventWidget> {
                   eventBlock(queryWidth, queryHeight, 'event1.jpg'),
                   eventBlock(queryWidth, queryHeight, 'event2.jpg'),
                   eventBlock(queryWidth, queryHeight, 'event3.jpg')
+
                   //eventBlock(queryWidth, queryHeight, 'event1.png'),
                 ]
             )
@@ -66,6 +67,7 @@ class _EventWidgetState extends State<EventWidget> {
         children:[
           // 이벤트 사진
           Image.asset(eventName),
+          
           // 힌색 컨테이너
           Container(
             width: width,
