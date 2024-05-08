@@ -35,13 +35,9 @@ class _EventWidgetState extends State<EventWidget> {
                 children:[
                   headerWidget(queryWidth, queryHeight * 0.1),
                   // title - '진행중인 이벤트'
-                  eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
-                  eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
-                  eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
-                  eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
-                  eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
-                  eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
-                  eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
+                  eventBlock(queryWidth, queryHeight, 'event1.jpg'),
+                  eventBlock(queryWidth, queryHeight, 'event2.jpg'),
+                  eventBlock(queryWidth, queryHeight, 'event3.jpg')
                   //eventBlock(queryWidth, queryHeight, 'event1.png'),
                 ]
             )
@@ -69,13 +65,7 @@ class _EventWidgetState extends State<EventWidget> {
       return Column(
         children:[
           // 이벤트 사진
-          Container(
-            width: width,
-            height: height * 0.2,
-            color: Colors.green,
-            child: Text(eventName)
-            //child: Image.asset(eventName)
-          ),
+          Image.asset(eventName),
           // 힌색 컨테이너
           Container(
             width: width,

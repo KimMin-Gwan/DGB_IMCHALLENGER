@@ -77,6 +77,9 @@ flutter:
     - assets/baemin.png
     - assets/crown.png
     - assets/investment.png
+    - assets/event1.jpg
+    - assets/event2.jpg
+    - assets/event3.jpg
 
     #- images/a_dot_ham.jpeg
 
