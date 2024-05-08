@@ -46,10 +46,17 @@ class _SettingWidgetState extends State<SettingWidget> {
             height: queryHeight, // 화면 높이 받아온걸로 지정
             child: Column(
               children: [
+<<<<<<< Updated upstream
                 Header(queryWidth, queryHeight),  // 최상단
                 Title(queryWidth, queryHeight)  // 설정 제목
               ],
             )
+=======
+                Header(queryWidth, queryHeight),
+              ]
+            )
+            //child: Header(queryWidth, queryHeight)  // 이런식으로 child 추가해 나갈것
+>>>>>>> Stashed changes
         )
     );
   }

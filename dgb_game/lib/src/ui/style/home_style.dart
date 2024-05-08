@@ -46,6 +46,9 @@ class HomeScaffoldTheme extends DefaultTheme{
   Color _questColor = Color(0xffefc659);
   Color _eventColor = Color(0xff8cdb42);
 
+  TextStyle _autoExpTextStyle = TextStyle();
+  TextStyle _autoExpHourTextStyle = TextStyle();
+
 
   // 아래는 생성자
   HomeScaffoldTheme(){
@@ -59,7 +62,12 @@ class HomeScaffoldTheme extends DefaultTheme{
       ),
       shadowColor: getRealBlack(),
     ); // ; 잊지말것
-    _levelTextStyle = TextStyle(fontSize: 27, color: getRealBlack(), fontWeight: FontWeight.w800);
+    _levelTextStyle = TextStyle(fontSize: 27, color: getRealBlack(),
+        fontWeight: FontWeight.w900,
+        shadows: [Shadow(offset: Offset(2.0, 2.0), blurRadius: 4.0, color: getRealBlack())]);
+    _autoExpTextStyle = TextStyle(fontSize: 18, color: getRealWhite());
+    _autoExpHourTextStyle = TextStyle(fontSize: 12, color: getRealWhite(), fontWeight: FontWeight.w400);
+
     _containerDecoration = BoxDecoration(
       color: getWidgetBoxGrayColor(),
       borderRadius: BorderRadius.circular(8),
@@ -69,6 +77,7 @@ class HomeScaffoldTheme extends DefaultTheme{
   }// 생성자는 인스턴스 생성할 때 실행됨
 
   // 아래는 접근자
+
   Color getSettingColor() => _settingColor;
   Color getQuestColor() => _questColor;
   Color getEventColor() => _eventColor;
@@ -77,6 +86,8 @@ class HomeScaffoldTheme extends DefaultTheme{
   Color getPercentBarColor() => _percentBarColor;
   ButtonStyle getSimpleButtonStyle() => _simpleButton;
   TextStyle getlevelTextStyle() => _levelTextStyle;
+  TextStyle getAutoExpTextStyle() => _autoExpTextStyle;
+  TextStyle getAutoExpHourTextStyle() => _autoExpHourTextStyle;
   BoxDecoration getContainerDecoration() => _containerDecoration;
 
 

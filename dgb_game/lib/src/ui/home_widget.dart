@@ -28,7 +28,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     if (queryWidth > maxWidth) {queryWidth = maxWidth;}
     double queryHeight = MediaQuery.of(context).size.height;
     // 세로 최대 길이를 1200으로  한정
-    if (queryWidth > maxHeight) {queryWidth = maxHeight; }
+    if (queryHeight> maxHeight) {queryHeight= maxHeight; }
 
     // 본문 위젯
     return Scaffold(
@@ -53,7 +53,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
     if (queryWidth > maxWidth) {queryWidth = maxWidth;}
     double queryHeight = MediaQuery.of(context).size.height;
     // 세로 최대 길이를 1200으로  한정
-    if (queryWidth > maxHeight) {queryWidth = maxHeight; }
+    if (queryHeight> maxHeight) {queryHeight= maxHeight; }
     return Container(  // 이 녀석은 배경 밑에 있는 도화지 같은 녀석
       color: _style.getMainWhite(),
       width:  queryWidth,
@@ -232,7 +232,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
             child: Column(
               children: [
                 autoExpTable(width, height),
-                autoExpTable(width, height)
+                heartTable(width, height)
               ],
             )
           ),
@@ -261,17 +261,56 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
   }
 
   Widget heartTable(width, height){
-    return Container(
+    width = width * 0.5;
 
+    return Container(
+      margin: EdgeInsets.all(3),
+      width: width,
+      height: height * 0.03,
+        child: Row(
+            children: [
+              Container( // 하트 들어가는 곳
+                alignment: Alignment.bottomCenter,
+                margin: EdgeInsets.all(3),
+                width: width * 0.60,
+                height: height * 0.03,
+                decoration: _style.getContainerDecoration(),
+                child: Row(
+                  children:[
+                    Image.asset('./heart.png')
+                  ]
+                )
+              ),
+              Container(  // 쿨타임
+                alignment: Alignment.bottomCenter,
+                margin: EdgeInsets.all(3),
+                width: width * 0.34,
+                height: height * 0.03,
+                decoration: _style.getContainerDecoration(),
+                child: Container(
+                  margin: EdgeInsets.only(left: 2),
+                  child: Text(" + 122", style: _style.getAutoExpHourTextStyle(),)
+                )
+              ),
+            ]
+        )
     );
   }
 
   Widget autoExpTable(width, height){
     return Container(
+      alignment: Alignment.bottomCenter,
       margin: EdgeInsets.all(3),
       width: width * 0.5,
       height: height * 0.03,
       decoration: _style.getContainerDecoration(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(" + 1.04", style: _style.getAutoExpTextStyle()),
+          Text("          / hour", style: _style.getAutoExpHourTextStyle(),)
+        ]
+      )
     );
   }
 
