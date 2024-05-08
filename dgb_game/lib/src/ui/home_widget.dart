@@ -188,13 +188,18 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
       height: height * 0.1,  //전체 새로 길이중 10%
       width: width,
       //color: Colors.blue,
-      child: Container( // 레벨 및 경험치 박스
-        margin: EdgeInsets.only(left: 15, top: 2, bottom: 2),
-        decoration: _style.getContainerDecoration(),
-        width: width * 0.42,
-        height: height * 0.07,
-        // 레벨 데이터를 넣어야되는 데 일단은 그냥 상수값 때려박음
-        child : levelWidget(width*0.42, height*0.07)
+      child: InkWell(
+        onTap: (){
+
+        },
+        child: Container( // 레벨 및 경험치 박스
+            margin: EdgeInsets.only(left: 15, top: 2, bottom: 2),
+            decoration: _style.getContainerDecoration(),
+            width: width * 0.42,
+            height: height * 0.07,
+            // 레벨 데이터를 넣어야되는 데 일단은 그냥 상수값 때려박음
+            child : levelWidget(width*0.42, height*0.07)
+        )
       )
     );
   }
