@@ -68,6 +68,15 @@ flutter:
     - assets/setting.png
     - assets/theme.png
     - assets/heart.png
+    - assets/calendar.png
+    - assets/gift-box.png
+    - assets/wall-clock.png
+    - assets/left-arrow.png
+    - assets/chat.png
+    - assets/kakaoT.png
+    - assets/baemin.png
+    - assets/crown.png
+    - assets/investment.png
 
     #- images/a_dot_ham.jpeg
 
