@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:dgb_game/src/ui/quest_widget.dart';
 import 'package:dgb_game/src/ui/event_widget.dart';
 import 'package:dgb_game/src/ui/setting_widget.dart';
+import 'package:dgb_game/src/ui/quiz/quiz_widget1.dart';
 
 // 이거는 건들이지 말고
 class HomeWidget extends StatefulWidget {
@@ -270,7 +271,11 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
           height: height * 0.05,
           child:Text("QUIZ", style: _style.getlevelTextStyle()),
         ),
-        onPressed: (){},
+        onPressed: (){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => QuizWidget1())
+          );
+        },
       )
     );
   }
