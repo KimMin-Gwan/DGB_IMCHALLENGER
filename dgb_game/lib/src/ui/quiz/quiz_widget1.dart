@@ -10,7 +10,7 @@ class QuizWidget1 extends StatefulWidget {
 
 class _QuizWidget1State extends State<QuizWidget1> {
 
-  var _style = QuizTheme(); // 테마
+  var _style = QuizTheme();// 테마
   final maxWidth = 400.0;
   final maxHeight = 900.0;
 
@@ -28,10 +28,33 @@ class _QuizWidget1State extends State<QuizWidget1> {
     }
     return Scaffold(
       body: Container(
-
+          width: queryWidth,
+          height: queryHeight,
+          color: _style.getMainColor(),
+          child: Column(
+            children: [
+              mainBody(queryWidth, queryHeight),
+              Container(),
+              Container(),
+            ],
+          )
       )
     );
   }
+
+  Widget mainBody(width, height){
+    return Column(
+      children: [
+        Container(
+          width: width,
+          height: height * 0.5,
+          color: _style.getRealWhite(),
+        ),
+
+      ],
+    );
+  }
+
 }
 
 

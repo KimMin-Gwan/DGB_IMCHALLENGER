@@ -3,6 +3,7 @@ import 'package:dgb_game/src/ui/style/home_style.dart';
 
 
 class QuizTheme extends DefaultTheme{
-  //Color _mainColor = Color(0xff)
+  Color _mainColor = Color(0xffF7FAFF);
 
+  Color getMainColor() => _mainColor;
 }
