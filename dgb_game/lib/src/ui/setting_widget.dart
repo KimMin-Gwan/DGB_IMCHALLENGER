@@ -52,6 +52,26 @@ class _SettingWidgetState extends State<SettingWidget> {
       body: SettingBodyWidget(),
     );
   }
+
+
+  Widget Background(double queryWidth, double queryHeight) {
+    return Container(
+      color: Color(0xFFEFF6FE),
+      width: queryWidth, // 인자로 받은 화면 가로 길이
+      height: queryHeight, // 인자로 받은 화면 높이
+      child: Header(queryWidth, queryHeight), // 추가적으로 child를 여기에 넣을 수 있습니다.
+    );
+  }
+
+  Widget Header(width, queryHeight) {
+    return Container(
+      color: Colors.deepOrangeAccent,
+      width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
+      height: queryHeight * 0.5, // 으로 child를 여기에 넣을 수 있습니다.
+      child: Container(), // 추가적
+    );
+  }
+
 }
 class SettingBodyWidget extends StatefulWidget {
   @override
