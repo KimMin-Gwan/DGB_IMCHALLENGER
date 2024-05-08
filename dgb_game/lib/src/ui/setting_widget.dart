@@ -48,67 +48,263 @@ class _SettingWidgetState extends State<SettingWidget> {
       queryHeight = maxHeight;
     }
 
-    // 가장 큰 틀!!!!!!!!!
     return Scaffold(
-        body: Container(
-            color: Color(0xFFEFF6FE), // 배경 색깔 지정 getMainWhite()
-            width: queryWidth, // 화면 가로 길이 받아온걸로 지정
-            height: queryHeight, // 화면 높이 받아온걸로 지정
-            child: Column(
-              children: [
-                Header(queryWidth, queryHeight), // 최상단
-                Title(queryWidth, queryHeight), // 설정 제목
-                List_tool(queryWidth, queryHeight),
-              ],
-            )
-        )
+      body: SettingBodyWidget(),
+    );
+  }
+}
+class SettingBodyWidget extends StatefulWidget {
+  @override
+  _SettingBodyWidgetState createState() => _SettingBodyWidgetState();
+}
+
+class _SettingBodyWidgetState extends State<SettingBodyWidget> {
+  var _style = SettingTheme(); // 테마
+  final maxWidth = 400.0;
+  final maxHeight = 900.0;
+
+
+  @override
+  Widget build(BuildContext context) {
+    double queryWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    // 가로 최대 길이를 400으로 한정
+    if (queryWidth > maxWidth) {
+      queryWidth = maxWidth;
+    }
+    double queryHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    // 세로 최대 길이를 1200으로  한정
+    if (queryWidth > maxHeight) {
+      queryWidth = maxHeight;
+    }
+    return Container(   //배경 밑 도화지 (기본배경)
+      color: _style.getMainWhite(),
+      width: queryWidth,
+      height: queryHeight,
+      child: Column(
+        children: [
+          Header(queryWidth, queryHeight),
+          Title(queryWidth, queryHeight),
+          ChangeTheme(queryWidth, queryHeight),
+          Alarm(queryWidth, queryHeight),
+          Helper(queryWidth, queryHeight),
+          Etc(queryWidth, queryHeight)
+
+        ],
+      )
     );
   }
 
+  //최상단(뒤로가기 있는 곳)
   Widget Header(width, height) {
     return Container(
-      color: Color(0xFFE1F2FC),
-      width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
-      height: height * 0.1, // 으로 child를 여기에 넣을 수 있습니다.
+      alignment: Alignment.centerLeft,
+      child: Icon(Icons.chevron_left),
+      width: width,
+      height: height * 0.1,
+      color: Color(0xffE1F2FC),
     );
   }
 
+  //어떤 페이지인지(설정페이지)
   Widget Title(width, height) {
     return Container(
-      width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
-      height: height * 0.22, // 으로 child를 여기에 넣을 수 있습니다.
-      color: Colors.lightGreenAccent,
+      width: width,
+      height: height * 0.20,
+      color: Color(0xffF7FAFF),
       child: Column( // Row 위젯을 사용해 가로로 배치
         children: [
           SizedBox(height: 12.0), // Header와 Title 사이에 공간 추가
           Title_inner_row(width, height),
-          /*Container(
-            width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
-            height: height * 0.15, // 으로 child를 여기에 넣을 수 있습니다.
-            color: Colors.deepOrange,
-          )*/
         ],
       ),
     );
   }
-
-  Widget List_tool(width, height) {
-    return Container(
-        width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
-        height: height * 0.14, // 으로 child를 여기에 넣을 수 있습니다.
-        color: Colors.cyan,
-        child: Column(
-          children: [
-            List_inner_row(width, height),
-            Container(
-              width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
-              height: height * 0.06, // 으로 child를 여기에 넣을 수 있습니다.
-              color: Colors.deepPurpleAccent,
-            ),
-          ],
-        )
+  //테마 변경
+  Widget ChangeTheme(width, height){
+    return Column(
+      children: [
+        Container(
+          width: width,
+          height: height*0.1,
+          color: Color(0xFFD1ECFF),
+          child: Row(
+            children: [
+              TopicEmage(width, height),
+              TopicTitle(width, height),
+              ThemePlus(width, height),
+            ],
+          )
+        ),
+        Container(
+          width: width,
+          height: 10,
+          color: Color(0xffEFF6FE),
+        ),
+      ],
     );
   }
+
+  //알림
+  Widget Alarm(width, height){
+    return Column(
+      children: [
+        Container(
+            width: width,
+            height: height*0.1,
+            color: Color(0xFFD1ECFF),
+            child: Row(
+              children: [
+                AlarmEmage(width, height),
+                AlarmTitle(width, height),
+              ],
+            )
+        ),
+        Container(
+          width: width,
+          height: 10,
+          color: Color(0xffEFF6FE),
+        ),
+      ],
+    );
+  }
+  //도움말
+  Widget Helper(width, height){
+    return Column(
+      children: [
+        Container(
+            width: width,
+            height: height*0.1,
+            color: Color(0xFFD1ECFF),
+            child: Row(
+              children: [
+                HelperEmage(width, height),
+                HelperTitle(width, height),
+              ],
+            )
+        ),
+        Container(
+          width: width,
+          height: 10,
+          color: Color(0xffEFF6FE),
+        ),
+      ],
+    );
+  }
+  //기타
+  Widget Etc(width, height){
+    return Column(
+      children: [
+        Container(
+            width: width,
+            height: height*0.1,
+            color: Color(0xFFD1ECFF),
+            child: Row(
+              children: [
+                EtcEmage(width, height),
+                EtcTitle(width, height),
+              ],
+            )
+        ),
+        Container(
+          width: width,
+          height: 10,
+          color: Color(0xffEFF6FE),
+        ),
+      ],
+    );
+  }
+
+
+  Widget TopicEmage(width, height){
+    return Container(
+      alignment: Alignment.center,
+      child: Image.asset('./theme.png',width: 30,height: 30),
+      width: width * 0.15,
+      height: height,
+      color: Color(0xFFD1ECFF),
+    );
+  }
+  Widget TopicTitle(width,height){
+    return Container(
+      alignment: Alignment.centerLeft, 
+      child: Text('테마 변경',style:_style.getTopicTextStyle()),
+      width: width * 0.65,
+      height: height,
+      color: Color(0xFFD1ECFF),
+    );
+  }
+  Widget AlarmEmage(width, height){
+    return Container(
+      alignment: Alignment.center,
+      child: Image.asset('./notification.png',width: 30,height: 30),
+      width: width * 0.15,
+      height: height,
+      color: Color(0xFFD1ECFF),
+    );
+  }
+  Widget AlarmTitle(width,height){
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text('알림',style:_style.getTopicTextStyle()),
+      width: width * 0.65,
+      height: height,
+      color: Color(0xFFD1ECFF),
+    );
+  }
+  Widget HelperEmage(width, height){
+    return Container(
+      alignment: Alignment.center,
+      child: Image.asset('./question.png',width: 30,height: 30),
+      width: width * 0.15,
+      height: height,
+      color: Color(0xFFD1ECFF),
+    );
+  }
+  Widget HelperTitle(width,height){
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text('도움말',style:_style.getTopicTextStyle()),
+      width: width * 0.65,
+      height: height,
+      color: Color(0xFFD1ECFF),
+    );
+  }
+  Widget EtcEmage(width, height){
+    return Container(
+      alignment: Alignment.center,
+      child: Image.asset('./etc.png',width: 30,height: 30),
+      width: width * 0.15,
+      height: height,
+      color: Color(0xFFD1ECFF),
+    );
+  }
+  Widget EtcTitle(width,height){
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text('기타',style:_style.getTopicTextStyle()),
+      width: width * 0.65,
+      height: height,
+      color: Color(0xFFD1ECFF),
+    );
+  }
+
+
+
+  Widget ThemePlus(width, height){
+    return Container(
+      width: width * 0.2,
+      height: height,
+      color: Color(0xFFD1ECFF),
+      child: Icon(Icons.chevron_right),
+    );
+  }
+
 // #############################################################################
 // Title 함수
   Widget Title_inner_row(width, height) {
@@ -125,73 +321,15 @@ class _SettingWidgetState extends State<SettingWidget> {
   Widget Title_text(width, height) {
     return Container(
       alignment: Alignment.centerLeft,
-      child: Text(
-        "  설정", // 여기에 원하는 텍스트를 입력하세요.
-        style: TextStyle(
-          fontSize: 18, // 텍스트 크기를 지정합니다.
-          fontWeight: FontWeight.bold, // 글자 굵기를 지정합니다.
-          color: Colors.black, // 텍스트 색상을 지정합니다.
-        ),
-      ),
-    );
+      child: Text("  설정", style: _style.getTitleTextStyle()),
+      );
   }
 
   Widget Title_image(width, height) {
     return Padding( // 여기에 Padding 위젯을 추가합니다.
       padding: EdgeInsets.only(left: 15.0), // 왼쪽에 10.0의 패딩을 추가합니다.
-      child: Image.asset(
-        'assets/setting.png', // 이미지 경로
-        width: 40, // 이미지의 가로 크기
-        height: 40, // 이미지의 세로 크기
-      ),
+      child: Image.asset('assets/setting.png', width: 40, height: 40),
     );
   }
-
-// #############################################################################
-// List_tool 함수
-  Widget Setting_list(width, height) {
-    return Container(
-      child: Column(
-
-      ),
-    );
-  }
-
-  Widget List_inner_row(width, height) {
-    return Container(
-        child: Row(
-          children: [
-            List_image(width, height),
-            List_text(width, height)
-          ],
-        )
-    );
-  }
-
-  Widget List_text(width, height) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        "  테마 변경", // 여기에 원하는 텍스트를 입력하세요.
-        style: TextStyle(
-          fontSize: 18, // 텍스트 크기를 지정합니다.
-          fontWeight: FontWeight.bold, // 글자 굵기를 지정합니다.
-          color: Colors.black, // 텍스트 색상을 지정합니다.
-        ),
-      ),
-    );
-  }
-
-  Widget List_image(width, height) {
-    return Container( // 여기에 Padding 위젯을 추가합니다.
-      child: Image.asset(
-        'assets/theme.png', // 이미지 경로
-        width: 40, // 이미지의 가로 크기
-        height: 40, // 이미지의 세로 크기
-      ),
-    );
-  }
-
-
 
 }

@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
       ),
 
       //home: HomeWidget() // 메인 화면 실행문
-      //home: SettingWidget() // 세팅 화면 실행문 - 혜림
-      home: QuestWidget() // 도전과제 화면 실행문 - 승준
+      home: SettingWidget() // 세팅 화면 실행문 - 혜림
+      // home: QuestWidget() // 도전과제 화면 실행문 - 승준
     );
   }
 }
