@@ -57,7 +57,8 @@ class _SettingWidgetState extends State<SettingWidget> {
             child: Column(
               children: [
                 Header(queryWidth, queryHeight), // 최상단
-                Title(queryWidth, queryHeight) // 설정 제목
+                Title(queryWidth, queryHeight), // 설정 제목
+                List_tool(queryWidth, queryHeight),
               ],
             )
         )
@@ -75,25 +76,59 @@ class _SettingWidgetState extends State<SettingWidget> {
   Widget Title(width, height) {
     return Container(
       width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
-      height: height * 0.1, // 으로 child를 여기에 넣을 수 있습니다.
-      child: Row( // Row 위젯을 사용해 가로로 배치
+      height: height * 0.22, // 으로 child를 여기에 넣을 수 있습니다.
+      color: Colors.lightGreenAccent,
+      child: Column( // Row 위젯을 사용해 가로로 배치
         children: [
-          Title_image(width, height),
-          Title_text(width, height)
+          SizedBox(height: 12.0), // Header와 Title 사이에 공간 추가
+          Title_inner_row(width, height),
+          /*Container(
+            width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
+            height: height * 0.15, // 으로 child를 여기에 넣을 수 있습니다.
+            color: Colors.deepOrange,
+          )*/
         ],
       ),
     );
   }
 
-// ----------------------------------------------------------------------------------
+  Widget List_tool(width, height) {
+    return Container(
+        width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
+        height: height * 0.14, // 으로 child를 여기에 넣을 수 있습니다.
+        color: Colors.cyan,
+        child: Column(
+          children: [
+            List_inner_row(width, height),
+            Container(
+              width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
+              height: height * 0.06, // 으로 child를 여기에 넣을 수 있습니다.
+              color: Colors.deepPurpleAccent,
+            ),
+          ],
+        )
+    );
+  }
+// #############################################################################
 // Title 함수
+  Widget Title_inner_row(width, height) {
+    return Container(
+        child: Row(
+          children: [
+            Title_image(width, height),
+            Title_text(width, height)
+          ],
+        )
+    );
+  }
+
   Widget Title_text(width, height) {
     return Container(
       alignment: Alignment.centerLeft,
       child: Text(
         "  설정", // 여기에 원하는 텍스트를 입력하세요.
         style: TextStyle(
-          fontSize: 24, // 텍스트 크기를 지정합니다.
+          fontSize: 18, // 텍스트 크기를 지정합니다.
           fontWeight: FontWeight.bold, // 글자 굵기를 지정합니다.
           color: Colors.black, // 텍스트 색상을 지정합니다.
         ),
@@ -106,10 +141,57 @@ class _SettingWidgetState extends State<SettingWidget> {
       padding: EdgeInsets.only(left: 15.0), // 왼쪽에 10.0의 패딩을 추가합니다.
       child: Image.asset(
         'assets/setting.png', // 이미지 경로
-        width: 50, // 이미지의 가로 크기
-        height: 50, // 이미지의 세로 크기
+        width: 40, // 이미지의 가로 크기
+        height: 40, // 이미지의 세로 크기
       ),
     );
   }
+
+// #############################################################################
+// List_tool 함수
+  Widget Setting_list(width, height) {
+    return Container(
+      child: Column(
+
+      ),
+    );
+  }
+
+  Widget List_inner_row(width, height) {
+    return Container(
+        child: Row(
+          children: [
+            List_image(width, height),
+            List_text(width, height)
+          ],
+        )
+    );
+  }
+
+  Widget List_text(width, height) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        "  테마 변경", // 여기에 원하는 텍스트를 입력하세요.
+        style: TextStyle(
+          fontSize: 18, // 텍스트 크기를 지정합니다.
+          fontWeight: FontWeight.bold, // 글자 굵기를 지정합니다.
+          color: Colors.black, // 텍스트 색상을 지정합니다.
+        ),
+      ),
+    );
+  }
+
+  Widget List_image(width, height) {
+    return Container( // 여기에 Padding 위젯을 추가합니다.
+      child: Image.asset(
+        'assets/theme.png', // 이미지 경로
+        width: 40, // 이미지의 가로 크기
+        height: 40, // 이미지의 세로 크기
+      ),
+    );
+  }
+
+
 
 }
