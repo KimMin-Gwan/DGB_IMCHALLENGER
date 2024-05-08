@@ -41,7 +41,6 @@ class _EventWidgetState extends State<EventWidget> {
                   eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
                   eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
                   eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
-                  eventBlock(queryWidth, queryHeight, '제일 첫번째 이벤트'),
                   //eventBlock(queryWidth, queryHeight, 'event1.png'),
                 ]
             )
@@ -74,7 +73,6 @@ class _EventWidgetState extends State<EventWidget> {
             height: height * 0.2,
             color: Colors.green,
             child: Text(eventName)
-            //child: Image.asset(eventName)
           ),
           // 힌색 컨테이너
           Container(
