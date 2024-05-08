@@ -104,7 +104,12 @@ class _SettingBodyWidgetState extends State<SettingBodyWidget> {
   Widget Header(width, height) {
     return Container(
       alignment: Alignment.centerLeft,
-      child: Icon(Icons.chevron_left),
+      child: IconButton(
+        icon: Icon(Icons.chevron_left),
+        onPressed: (){
+          Navigator.pop(context);
+        },
+      ),
       width: width,
       height: height * 0.1,
       color: Color(0xffE1F2FC),
@@ -127,26 +132,31 @@ class _SettingBodyWidgetState extends State<SettingBodyWidget> {
   }
   //테마 변경
   Widget ChangeTheme(width, height){
-    return Column(
-      children: [
-        Container(
-          width: width,
-          height: height*0.1,
-          color: Color(0xFFD1ECFF),
-          child: Row(
-            children: [
-              TopicEmage(width, height),
-              TopicTitle(width, height),
-              ThemePlus(width, height),
-            ],
-          )
-        ),
-        Container(
-          width: width,
-          height: 10,
-          color: Color(0xffEFF6FE),
-        ),
-      ],
+    return InkWell(
+      onTap: (){
+        print("버튼 눌림");
+      },
+      child: Column(
+        children: [
+          Container(
+              width: width,
+              height: height*0.1,
+              color: Color(0xFFD1ECFF),
+              child: Row(
+                children: [
+                  TopicEmage(width, height),
+                  TopicTitle(width, height),
+                  ThemePlus(width, height),
+                ],
+              )
+          ),
+          Container(
+            width: width,
+            height: 10,
+            color: Color(0xffEFF6FE),
+          ),
+        ],
+      )
     );
   }
 

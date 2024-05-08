@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/home_style.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:dgb_game/src/ui/quest_widget.dart';
+import 'package:dgb_game/src/ui/event_widget.dart';
+import 'package:dgb_game/src/ui/setting_widget.dart';
 
 // 이거는 건들이지 말고
 class HomeWidget extends StatefulWidget {
@@ -121,7 +124,11 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
             backgroundColor: _style.getSettingColor(),
             shadowColor: Colors.black,
           ),
-          onPressed: (){},
+          onPressed: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingWidget())
+            );
+          },
         )
     );
   }
@@ -140,7 +147,11 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
             backgroundColor: _style.getQuestColor(),
             shadowColor: Colors.black,
           ),
-          onPressed: (){},
+          onPressed: (){
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => QuestWidget())
+            );
+          },
         )
     );
   }
@@ -159,7 +170,11 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
             backgroundColor: _style.getEventColor(),
             shadowColor: Colors.black,
           ),
-          onPressed: (){},
+          onPressed: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => EventWidget())
+            );
+          },
         )
     );
   }
@@ -264,9 +279,9 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
     width = width * 0.5;
 
     return Container(
-      margin: EdgeInsets.all(3),
+      margin: EdgeInsets.all(2),
       width: width,
-      height: height * 0.03,
+      height: height * 0.04,
         child: Row(
             children: [
               Container( // 하트 들어가는 곳
@@ -300,7 +315,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
   Widget autoExpTable(width, height){
     return Container(
       alignment: Alignment.bottomCenter,
-      margin: EdgeInsets.all(3),
+      margin: EdgeInsets.all(2),
       width: width * 0.5,
       height: height * 0.03,
       decoration: _style.getContainerDecoration(),

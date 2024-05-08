@@ -64,6 +64,8 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
   var _style = QuestTheme(); // 테마
   final maxWidth = 400.0;
   final maxHeight = 900.0;
+  bool _buttonColor = false;
+
 
 
   @override
@@ -92,7 +94,12 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
             children: [
               Container(
                 alignment: Alignment.centerLeft,
-                child: Image.asset('./left-arrow.png',width: 30, height: 30,),
+                child: IconButton(
+                  icon: Icon(Icons.chevron_left),
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                ),
                 width: queryWidth,
                 height: queryHeight * 0.1,
                 color: Color(0xffE1F2FC),
@@ -600,24 +607,32 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
   }
   //받기 누른 후
   Widget QuestCompleteAfter(width, height) {
-    return Container(
+    return InkWell(
+       onTap: (){
+         print("버튼눌림");
+         print(_buttonColor);
+         setState(() {
+           _buttonColor = true;
+         });
+       },
+      child: Container(
         alignment: Alignment.center,
         width: width * 0.19,
         height: height * 0.05,
         margin: EdgeInsets.only(left: 12),
         decoration: BoxDecoration(
-          color: Colors.grey,
+          color: _buttonColor ? Colors.grey : Colors.white,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(right:2),
-                width: width * 0.05,
-                height: height,
-                child: Image.asset('./gift-box.png')
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(right:2),
+              width: width * 0.05,
+              height: height,
+              child: Image.asset('./gift-box.png')
             ),
             Container(
               alignment: Alignment.center,
@@ -626,6 +641,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
             ),
           ],
         )
+      )
     );
   }
 
