@@ -33,8 +33,8 @@ class _EventWidgetState extends State<EventWidget> {
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.start,
                 children:[
-                  headerWidget(queryWidth, queryHeight * 0.1),
-                  // title - '진행중인 이벤트'
+                  headerWidget(queryWidth, queryHeight * 0.09),
+                  title(queryWidth, queryHeight * 0.09),
                   eventBlock(queryWidth, queryHeight, 'event1.jpg'),
                   eventBlock(queryWidth, queryHeight, 'event2.jpg'),
                   eventBlock(queryWidth, queryHeight, 'event3.jpg')
@@ -62,12 +62,25 @@ class _EventWidgetState extends State<EventWidget> {
     );
   }
 
+  Widget title(width, height) {
+    return Container(
+      width: width,
+      height: height,
+      alignment: Alignment.centerLeft,
+      color: _style.getMainWhite(),
+      child: Text('      현재 진행중인 이벤트', style: TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w700
+      ),),
+    );
+  }
+
   Widget eventBlock(width, height, eventName){
       return Column(
         children:[
           // 이벤트 사진
           Image.asset(eventName),
-          
+
           // 힌색 컨테이너
           Container(
             width: width,
