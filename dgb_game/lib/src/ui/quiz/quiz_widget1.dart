@@ -34,8 +34,8 @@ class _QuizWidget1State extends State<QuizWidget1> {
           child: Column(
             children: [
               mainBody(queryWidth, queryHeight),
-              Container(),
-              Container(),
+              middleArea(queryWidth, queryHeight),
+              bottomArea(queryWidth, queryHeight)
             ],
           )
       )
@@ -49,14 +49,171 @@ class _QuizWidget1State extends State<QuizWidget1> {
           width: width,
           height: height * 0.5,
           color: _style.getRealWhite(),
+          child: Column(
+            children: [
+              Container(
+                  alignment: Alignment.bottomCenter,
+                  width: width,
+                  height: height * 0.18,
+                  color: _style.getBodyColor(),
+                  child: Text('퀴즈 풀기', style: _style.getTitleTextStyle()),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: Image.asset('./money_dan.png', width: 170,height: 170,),
+                width: width,
+                height: height * 0.32,
+                color: _style.getBodyColor(),
+
+              ),
+            ],
+
+          )
         ),
 
       ],
     );
   }
 
-}
+  Widget topTitle(width, height){
+    return Container();
+  }
 
+  Widget middleArea(width, height){
+    return Container(
+      width: width,
+      height: height * 0.23,
+      color: _style.getMainColor(),
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.bottomRight,
+            width: width * 0.75,
+            height: height * 0.05,
+            child: Row(
+              children: [
+                Container(
+                  alignment: Alignment.centerRight,
+                  width: width * 0.339,
+                  height: 10,
+                  child: Image.asset('./info.png'),
+                ),
+                Container(
+                  alignment: Alignment.centerRight,
+                  width: width * 0.411,
+                  child: Text("문제를 1개 맞추면 2pt를 받을 수 있어요.", style: _style.getInfoTextStyle()),
+                ),
+              ],
+            )
+          ),
+          Container(
+
+            width: width * 0.75,
+            height: height * 0.14,
+            decoration: BoxDecoration(
+              color: _style.getBodyColor(),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  width: width * 0.36,
+                  height: height * 0.1,
+                  child: Text("나의 퀴즈 현황"),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  width: width * 0.36,
+                  height: height * 0.1,
+                  child: Column(
+                    children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: height * 0.05,
+                      child: Text("1324 / 6000"),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: height * 0.05,
+                      child: Text("(2648pt / 12000pt)"),
+                    ),
+                   ]
+                  )
+                ),
+              ],
+            ),
+
+          )
+        ],
+      ),
+    );
+  }
+  Widget bottomArea(width, height){
+    return Container(
+      width: width,
+      height: height * 0.27,
+      color: _style.getBodyColor(),
+      child: Column(
+        children: [
+          Container(
+            child: bottom1(width, height),
+          ),
+          Container(
+            alignment: Alignment.center,
+            width: width * 0.85,
+            height: height * 0.09,
+            color: Color(0xFFF7F7F7),
+            child: Text("뒤로가기", style: _style.getTopicTextStyle()),
+          ),
+        ],
+      ),
+      );
+  }
+
+  Widget bottom1(width, height){
+    return Column(
+      children: [
+        Container(
+          alignment: Alignment.bottomRight,
+          width: width * 0.85,
+          height: height * 0.05,
+          child: Text("한 퀴즈 당 총 10개의 문제가 나옵니다."),
+        ),
+        Container(
+          width: width * 0.85,
+          height: height * 0.09,
+          color: _style.getStartColor(),
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                child: Image.asset('./heart.png'),
+                width: width*0.07,
+                height: height,
+                color: _style.getStartColor(),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: Text('-1'),
+                width: width*0.06,
+                height: height,
+                color: _style.getStartColor(),
+              ),
+              Container(
+                alignment: Alignment.center,
+                width: width * 0.59,
+                height: height,
+                child: Text("퀴즈 시작", style: _style.getTopicTextStyle()),
+              ),
+            ],
+          )
+        )
+      ],
+    );
+  }
+
+}
 
 
 

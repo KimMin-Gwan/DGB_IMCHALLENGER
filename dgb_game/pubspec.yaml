@@ -80,7 +80,9 @@ flutter:
     - assets/event1.jpg
     - assets/event2.jpg
     - assets/event3.jpg
-
+    - assets/money_dan.png
+    - assets/think.png
+    - assets/info.png
     #- images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

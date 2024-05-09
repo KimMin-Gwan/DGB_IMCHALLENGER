@@ -8,6 +8,7 @@ import 'package:dgb_game/src/ui/quest_widget.dart';
 import 'package:dgb_game/src/ui/event_widget.dart';
 import 'package:dgb_game/src/ui/setting_widget.dart';
 import 'package:dgb_game/src/ui/quiz/quiz_widget1.dart';
+import 'package:dgb_game/src/ui/quiz/quiz_widget2.dart';
 
 // 이거는 건들이지 말고
 class HomeWidget extends StatefulWidget {
