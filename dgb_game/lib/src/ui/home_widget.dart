@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/home_style.dart';
@@ -9,6 +9,7 @@ import 'package:dgb_game/src/ui/event_widget.dart';
 import 'package:dgb_game/src/ui/setting_widget.dart';
 import 'package:dgb_game/src/ui/quiz/quiz_widget1.dart';
 import 'package:dgb_game/src/ui/quiz/quiz_widget2.dart';
+import 'package:dgb_game/src/ui/level_widget.dart';
 
 // 이거는 건들이지 말고
 class HomeWidget extends StatefulWidget {
@@ -69,7 +70,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('./background.jpg'),
+                image: AssetImage('images/background.jpg'),
                 fit:BoxFit.cover,
               )
             ),
@@ -191,7 +192,9 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
       //color: Colors.blue,
       child: InkWell(
         onTap: (){
-
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => LevelWidget())
+          );
         },
         child: Container( // 레벨 및 경험치 박스
             margin: EdgeInsets.only(left: 15, top: 2, bottom: 2),
@@ -303,7 +306,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
                 decoration: _style.getContainerDecoration(),
                 child: Row(
                   children:[
-                    Image.asset('./heart.png')
+                    Image.asset('images/heart.png')
                   ]
                 )
               ),

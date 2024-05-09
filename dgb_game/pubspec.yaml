@@ -47,7 +47,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
   percent_indicator: ^4.2.3
-  font_awesome_flutter: ^9.2.0
+  font_awesome_flutter: ^10.7.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -61,28 +61,29 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/background.jpg
-    - assets/etc.png
-    - assets/notification.png
-    - assets/question.png
-    - assets/setting.png
-    - assets/theme.png
-    - assets/heart.png
-    - assets/calendar.png
-    - assets/gift-box.png
-    - assets/wall-clock.png
-    - assets/left-arrow.png
-    - assets/chat.png
-    - assets/kakaoT.png
-    - assets/baemin.png
-    - assets/crown.png
-    - assets/investment.png
-    - assets/event1.jpg
-    - assets/event2.jpg
-    - assets/event3.jpg
-    - assets/money_dan.png
-    - assets/think.png
-    - assets/info.png
+   - images/background.jpg
+   - images/etc.png
+   - images/notification.png
+   - images/question.png
+   - images/setting.png
+   - images/theme.png
+   - images/heart.png
+   - images/calendar.png
+   - images/gift-box.png
+   - images/wall-clock.png
+   - images/left-arrow.png
+   - images/chat.png
+   - images/kakaoT.png
+   - images/baemin.png
+   - images/crown.png
+   - images/investment.png
+   - images/event1.jpg
+   - images/event2.jpg
+   - images/event3.jpg
+   - images/money_dan.png
+   - images/think.png
+   - images/info.png
+
     #- images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
