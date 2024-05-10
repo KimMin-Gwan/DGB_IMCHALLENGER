@@ -1,3 +1,4 @@
+import 'package:dgb_game/src/ui/quiz/quiz_widget_true.dart';
 import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/quiz_style.dart';
 
@@ -34,6 +35,7 @@ class _QuizWidget2State extends State<QuizWidget2> {
         color: _style.getMainColor(),
         child: Column(
           children: [
+            backPart(queryWidth,queryHeight),
             topPart(queryWidth,queryHeight),
             middlePart(queryWidth,queryHeight),
             bottomPart(queryWidth,queryHeight),
@@ -43,10 +45,23 @@ class _QuizWidget2State extends State<QuizWidget2> {
     );
   }
 
+  Widget backPart(width, height){
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: IconButton(
+        icon: Icon(Icons.chevron_left),
+        onPressed: (){
+          Navigator.pop(context);
+          },
+      ),
+      width: width,
+      height: height * 0.1,
+    );
+  }
   Widget topPart(width, height){
     return Container(
       width: width,
-      height: height * 0.4,
+      height: height * 0.3,
       color: _style.getMainColor(),
       child: Column(
         children: [
@@ -59,21 +74,21 @@ class _QuizWidget2State extends State<QuizWidget2> {
   Widget numQuest(width, height){
     return Container(
       width: width,
-      height: height * 0.2,
+      height: height * 0.1,
       color: _style.getMainColor(),
       child: Column(
         children: [
           Container(
             alignment: Alignment.bottomCenter,
-            child: Image.asset('./think.png'),
+            child: Image.asset('./images/think.png'),
             width: 35,
-            height: height * 0.15,
+            height: height * 0.07,
 
           ),
           Container(
               alignment: Alignment.topCenter,
               width: width * 0.5,
-              height: height * 0.05,
+              height: height * 0.03,
               child: Text('1/10')
           ),
         ],
@@ -105,26 +120,23 @@ class _QuizWidget2State extends State<QuizWidget2> {
       )
     );
   }
+
+  //선택전
   Widget selectBox(width, height, example){
-    return InkWell(
-        onTap: (){
-          print("버튼눌림");
-          print(_buttonColor);
-          setState(() {
-            _buttonColor = true;
-          });
-          },
-    child: Column(
+    return Column(
       children: [
-        Container(
-            alignment: Alignment.center,
-            width: width * 0.96,
-            height: height * 0.10,
-            decoration: BoxDecoration(
-              color: Color(0xffF7F7F7),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Text(example, style: _style.getExampleTextStyle())
+        InkWell(
+          onTap: (){},
+          child: Container(
+              alignment: Alignment.center,
+              width: width * 0.96,
+              height: height * 0.10,
+              decoration: BoxDecoration(
+                color: Color(0xffF7F7F7),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Text(example, style: _style.getExampleTextStyle())
+          ),
         ),
         Container(
           width: width,
@@ -132,31 +144,31 @@ class _QuizWidget2State extends State<QuizWidget2> {
           color: _style.getMainColor(),
         ),
       ],
-    )
     );
   }
 
   //선택된 버튼
   Widget selectedBox(width, height, example){
-    return InkWell(
-        onTap: (){
-          print("버튼눌림");
-          print(_buttonColor);
-          setState(() {
-            _buttonColor = true;
-          });
-        },
-        child: Column(
+    return Column(
           children: [
-            Container(
-                alignment: Alignment.center,
-                width: width * 0.96,
-                height: height * 0.11,
-                decoration: BoxDecoration(
-                  color: _buttonColor ? Color(0xff038AE4) : Color(0xffF7F7F7),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Text(example, style: _style.getExampleTextStyle())
+            InkWell(
+              onTap: (){
+                print("버튼눌림");
+                print(_buttonColor);
+                setState(() {
+                  _buttonColor = !_buttonColor;
+                });
+                },
+              child: Container(
+                  alignment: Alignment.center,
+                  width: width * 0.96,
+                  height: height * 0.11,
+                  decoration: BoxDecoration(
+                    color: _buttonColor ? Color(0xff038AE4) : Color(0xffF7F7F7),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Text(example, style: _style.getExampleTextStyle())
+              ),
             ),
             Container(
               width: width,
@@ -164,7 +176,6 @@ class _QuizWidget2State extends State<QuizWidget2> {
               color: _style.getMainColor(),
             ),
           ],
-        )
     );
   }
 
@@ -184,29 +195,43 @@ class _QuizWidget2State extends State<QuizWidget2> {
     );
   }
   Widget jump(width, height){
-    return Container(
-      alignment: Alignment.center,
-      width: width * 0.45,
-      height: height,
-      margin: EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Text('건너뛰기', style: _style.getQuestTextStyle()),
-    );
-  }
-  Widget decision(width, height){
-    return Container(
+    return InkWell(
+      onTap: (){},
+      child: Container(
         alignment: Alignment.center,
         width: width * 0.45,
         height: height,
         margin: EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
-          color: Colors.blue,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(15),
         ),
-      child: Text('결정', style: _style.getQuestTextStyle())
+        child: Text('건너뛰기', style: _style.getQuestTextStyle()),
+      ),
+    );
+  }
+  Widget decision(width, height){
+    return Stack(
+        children: [
+          InkWell(
+            onTap: (){
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => QuizTrue())
+              );
+            },
+            child: Container(
+                alignment: Alignment.center,
+                width: width * 0.45,
+                height: height,
+                margin: EdgeInsets.only(bottom: 10),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Text('결정', style: _style.getQuestTextStyle())
+            ),
+          )
+        ]
     );
   }
 

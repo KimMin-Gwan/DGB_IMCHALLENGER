@@ -52,28 +52,7 @@ class _SettingWidgetState extends State<SettingWidget> {
       body: SettingBodyWidget(),
     );
   }
-
-
-  Widget Background(double queryWidth, double queryHeight) {
-    return Container(
-      color: Color(0xFFEFF6FE),
-      width: queryWidth, // 인자로 받은 화면 가로 길이
-      height: queryHeight, // 인자로 받은 화면 높이
-      child: Header(queryWidth, queryHeight), // 추가적으로 child를 여기에 넣을 수 있습니다.
-    );
-  }
-
-  Widget Header(width, queryHeight) {
-    return Container(
-      color: Colors.deepOrangeAccent,
-      width: width, // 인자로 받은 화면 가로 길이/ 인자로 받은 화면 높이
-      height: queryHeight * 0.5, // 으로 child를 여기에 넣을 수 있습니다.
-      child: Container(), // 추가적
-    );
-  }
-
 }
-
 
 class SettingBodyWidget extends StatefulWidget {
   @override
@@ -85,24 +64,17 @@ class _SettingBodyWidgetState extends State<SettingBodyWidget> {
   final maxWidth = 400.0;
   final maxHeight = 900.0;
 
-
   @override
   Widget build(BuildContext context) {
-    double queryWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double queryWidth = MediaQuery.of(context).size.width;
     // 가로 최대 길이를 400으로 한정
     if (queryWidth > maxWidth) {
       queryWidth = maxWidth;
     }
-    double queryHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
+    double queryHeight = MediaQuery.of(context).size.height;
     // 세로 최대 길이를 1200으로  한정
-    if (queryWidth > maxHeight) {
-      queryWidth = maxHeight;
+    if (queryHeight > maxHeight) {
+      queryHeight = maxHeight;
     }
     return Container(   //배경 밑 도화지 (기본배경)
       color: _style.getMainWhite(),
@@ -154,31 +126,31 @@ class _SettingBodyWidgetState extends State<SettingBodyWidget> {
   }
   //테마 변경
   Widget ChangeTheme(width, height){
-    return InkWell(
-      onTap: (){
-        print("버튼 눌림");
-      },
-      child: Column(
+    return Column(
         children: [
-          Container(
+        InkWell(
+        onTap: (){
+      print("버튼 눌림");
+    },
+    child: Container(
               width: width,
               height: height*0.1,
               color: Color(0xFFD1ECFF),
               child: Row(
                 children: [
-                  TopicEmage(width, height),
-                  TopicTitle(width, height),
+                  topicImage(width, height,'./images/theme.png'),
+                  topicTitle(width, height,'테마 변경'),
                   ThemePlus(width, height),
                 ],
               )
-          ),
+          )
+        ),
           Container(
             width: width,
             height: 10,
-            color: Color(0xffEFF6FE),
+            color: Color(0xffF7FAFF),
           ),
         ],
-      )
     );
   }
 
@@ -186,21 +158,26 @@ class _SettingBodyWidgetState extends State<SettingBodyWidget> {
   Widget Alarm(width, height){
     return Column(
       children: [
-        Container(
+        InkWell(
+        onTap: (){
+          print("버튼 눌림");
+          },
+        child:Container(
             width: width,
             height: height*0.1,
             color: Color(0xFFD1ECFF),
             child: Row(
               children: [
-                AlarmEmage(width, height),
-                AlarmTitle(width, height),
+                topicImage(width, height,'./images/notification.png'),
+                topicTitle(width, height,'알림'),
               ],
             )
+        )
         ),
         Container(
           width: width,
           height: 10,
-          color: Color(0xffEFF6FE),
+          color: Color(0xffF7FAFF),
         ),
       ],
     );
@@ -209,21 +186,26 @@ class _SettingBodyWidgetState extends State<SettingBodyWidget> {
   Widget Helper(width, height){
     return Column(
       children: [
-        Container(
+        InkWell(
+        onTap: (){
+      print("버튼 눌림");
+    },
+    child: Container(
             width: width,
             height: height*0.1,
             color: Color(0xFFD1ECFF),
             child: Row(
               children: [
-                HelperEmage(width, height),
-                HelperTitle(width, height),
+                topicImage(width, height,'./images/question.png'),
+                topicTitle(width, height, '도움말'),
               ],
             )
+    )
         ),
         Container(
           width: width,
           height: 10,
-          color: Color(0xffEFF6FE),
+          color: Color(0xffF7FAFF),
         ),
       ],
     );
@@ -232,101 +214,52 @@ class _SettingBodyWidgetState extends State<SettingBodyWidget> {
   Widget Etc(width, height){
     return Column(
       children: [
-        Container(
+        InkWell(
+        onTap: (){
+      print("버튼 눌림");
+    },
+    child: Container(
             width: width,
             height: height*0.1,
             color: Color(0xFFD1ECFF),
             child: Row(
               children: [
-                EtcEmage(width, height),
-                EtcTitle(width, height),
+                topicImage(width, height,'./images/etc.png'),
+                topicTitle(width, height, '도움말'),
               ],
             )
+        ),
         ),
         Container(
           width: width,
           height: 10,
-          color: Color(0xffEFF6FE),
+          color: Color(0xffF7FAFF),
         ),
       ],
     );
   }
 
-
-  Widget TopicEmage(width, height){
+  //각 주제별 이미지
+  Widget topicImage(width, height, img_path){
     return Container(
       alignment: Alignment.center,
-      child: Image.asset('./theme.png',width: 30,height: 30),
+      child: Image.asset(img_path, width: 30,height: 30),
       width: width * 0.15,
-      height: height,
-      color: Color(0xFFD1ECFF),
-    );
-  }
-  Widget TopicTitle(width,height){
-    return Container(
-      alignment: Alignment.centerLeft, 
-      child: Text('테마 변경',style:_style.getTopicTextStyle()),
-      width: width * 0.65,
-      height: height,
-      color: Color(0xFFD1ECFF),
-    );
-  }
-  Widget AlarmEmage(width, height){
-    return Container(
-      alignment: Alignment.center,
-      child: Image.asset('./notification.png',width: 30,height: 30),
-      width: width * 0.15,
-      height: height,
-      color: Color(0xFFD1ECFF),
-    );
-  }
-  Widget AlarmTitle(width,height){
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Text('알림',style:_style.getTopicTextStyle()),
-      width: width * 0.65,
-      height: height,
-      color: Color(0xFFD1ECFF),
-    );
-  }
-  Widget HelperEmage(width, height){
-    return Container(
-      alignment: Alignment.center,
-      child: Image.asset('./question.png',width: 30,height: 30),
-      width: width * 0.15,
-      height: height,
-      color: Color(0xFFD1ECFF),
-    );
-  }
-  Widget HelperTitle(width,height){
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Text('도움말',style:_style.getTopicTextStyle()),
-      width: width * 0.65,
-      height: height,
-      color: Color(0xFFD1ECFF),
-    );
-  }
-  Widget EtcEmage(width, height){
-    return Container(
-      alignment: Alignment.center,
-      child: Image.asset('./etc.png',width: 30,height: 30),
-      width: width * 0.15,
-      height: height,
-      color: Color(0xFFD1ECFF),
-    );
-  }
-  Widget EtcTitle(width,height){
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Text('기타',style:_style.getTopicTextStyle()),
-      width: width * 0.65,
       height: height,
       color: Color(0xFFD1ECFF),
     );
   }
 
-
+  //각 주제별 제목
+  Widget topicTitle(width, height, title){
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text(title,style:_style.getTopicTextStyle()),
+      width: width * 0.65,
+      height: height,
+      color: Color(0xFFD1ECFF),
+    );
+  }
 
   Widget ThemePlus(width, height){
     return Container(
@@ -360,7 +293,7 @@ class _SettingBodyWidgetState extends State<SettingBodyWidget> {
   Widget Title_image(width, height) {
     return Padding( // 여기에 Padding 위젯을 추가합니다.
       padding: EdgeInsets.only(left: 15.0), // 왼쪽에 10.0의 패딩을 추가합니다.
-      child: Image.asset('assets/setting.png', width: 40, height: 40),
+      child: Image.asset('./images/setting.png', width: 40, height: 40),
     );
   }
 

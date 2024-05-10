@@ -34,7 +34,7 @@ class _QuestWidgetState extends State<QuestWidget> {
     if (queryWidth > maxWidth) {queryWidth = maxWidth;}
     double queryHeight = MediaQuery.of(context).size.height;
     // 세로 최대 길이를 1200으로  한정
-    if (queryWidth > maxHeight) {queryWidth = maxHeight; }
+    if (queryHeight > maxHeight) {queryHeight = maxHeight; }
 
     return Scaffold(
       /*
@@ -66,8 +66,6 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
   final maxHeight = 900.0;
   bool _buttonColor = false;
 
-
-
   @override
   Widget build(BuildContext context) {
     double queryWidth = MediaQuery
@@ -92,18 +90,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
         height: queryHeight,
         child: Column( //그리기 부분
             children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: Icon(Icons.chevron_left),
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                ),
-                width: queryWidth,
-                height: queryHeight * 0.1,
-                color: Color(0xffE1F2FC),
-              ),
+              topBlock(queryWidth, queryHeight),
               DayQuestBlock(queryWidth, queryHeight),
               WeekQuestBlock(queryWidth, queryHeight),
             ]
@@ -111,6 +98,21 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
     );
   }
 
+  //뒤로 가기 버튼 부분
+  Widget topBlock(width, height){
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: IconButton(
+        icon: Icon(Icons.chevron_left),
+        onPressed: (){
+          Navigator.pop(context);
+          },
+      ),
+      width: width,
+      height: height * 0.1,
+      color: _style.getTopColor(),
+    );
+  }
 
 //퀘스트 블록
   Widget DayQuestBlock(width, height) {
@@ -119,26 +121,11 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
           Container(
               width: width,
               height: height * 0.3,
-              color: Color(0xffEFF6FE),
+              color: _style.getBackColor(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: width,
-                      height: height * 0.09,
-                      color: Color(0xffEFF6FE),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            margin: EdgeInsets.only(left: 7),
-                            child: Text('오늘 받을 수 있는 보상', style: _style.getTitleTextStyle()),
-                          ),
-                          RemainTime(width, height),
-                        ],
-                      )
-                    ),
+                    titleBox(width, height, '오늘 받을 수 있는 보상'),
                     QuestAttendance(width, height),
                     QuestInteraction(width, height),
                   ]
@@ -154,25 +141,10 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
           Container(
               width: width,
               height: height * 0.6,
-              color: Color(0xffEFF6FE),
+              color: _style.getBackColor(),
               child: Column(
                   children: [
-                    Container(
-                      width: width,
-                      height: height * 0.09,
-                      color: Color(0xffEFF6FE),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                              alignment: Alignment.centerLeft,
-                              margin: EdgeInsets.only(left: 7),
-                              child: Text('주간 미션 보상 (계좌 연동 필요)', style: _style.getTitleTextStyle())
-                          ),
-                          RemainTime(width, height)
-                        ],
-                      )
-                    ),
+                    titleBox(width, height, '주간 미션 보상 (계좌 연동 필요)'),
                     QuestNoTaxi(width, height),
                     QuestNoOrder(width, height),
                     QuestQuizKing(width, height),
@@ -181,6 +153,28 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
               )
           )
         ]
+    );
+  }
+  //주제 박스
+  Widget titleBox(width, height, date_sentence){
+    return Container(
+        width: width,
+        height: height * 0.09,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            dateQuestInfo(width, height, date_sentence),
+            RemainTime(width, height)
+          ],
+        )
+    );
+  }
+  //일일 , 주간 미션 정보
+  Widget dateQuestInfo(width, height, date_sentence){
+    return Container(
+        alignment: Alignment.centerLeft,
+        margin: EdgeInsets.only(left: 7),
+        child: Text(date_sentence, style: _style.getTitleTextStyle())
     );
   }
 
@@ -194,7 +188,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
               color: Color(0xffD1ECFF),
               child: Row(
                 children: [
-                  QuestImageAttendance(width, height),
+                  QuestImage(width, height, './images/calendar.png'),
                   Container(
                     child: QuestInfoAttendance(width, height)
                   ),
@@ -220,7 +214,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
               color: Color(0xffD1ECFF),
               child: Row(
                 children: [
-                  QuestImageInteraction(width, height),
+                  QuestImage(width, height,'./images/chat.png'),
                   Container(
                       child: QuestInfoInteraction(width, height)
                   ),
@@ -246,7 +240,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
               color: Color(0xffD1ECFF),
               child: Row(
                 children: [
-                  QuestImageNoTaxi(width, height),
+                  QuestImage(width, height,'./images/kakaoT.png'),
                   Container(
                       child: QuestInfoNoTaxi(width, height)
                   ),
@@ -272,7 +266,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
               color: Color(0xffD1ECFF),
               child: Row(
                 children: [
-                  QuestImageNoOrder(width, height),
+                  QuestImage(width, height,'./images/baemin.png'),
                   Container(
                       child: QuestInfoNoOrder(width, height)
                   ),
@@ -298,7 +292,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
               color: Color(0xffD1ECFF),
               child: Row(
                 children: [
-                  QuestImageQuizKing(width, height),
+                  QuestImage(width, height,'./images/crown.png'),
                   Container(
                       child: QuestInfoQuizKing(width, height)
                   ),
@@ -324,7 +318,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
               color: Color(0xffD1ECFF),
               child: Row(
                 children: [
-                  QuestImageInvestment(width, height),
+                  QuestImage(width, height,'./images/investment.png'),
                   Container(
                       child: QuestInfoInvestment(width, height)
                   ),
@@ -340,50 +334,11 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
         ]
     );
   }
-  //달력 이미지(출석체크)
-  Widget QuestImageAttendance(width, height) {
+
+  //퀘스트 이미지 실험용
+  Widget QuestImage(width, height, img_path) {
     return Container(
-      child: Image.asset('./calendar.png'),
-      width: width * 0.15,
-      height: height * 0.05,
-    );
-  }
-  //말풍선 이미지(상호작용)
-  Widget QuestImageInteraction(width, height) {
-    return Container(
-      child: Image.asset('./chat.png'),
-      width: width * 0.15,
-      height: height * 0.05,
-    );
-  }
-  //택시 이미지(택시 안타기)
-  Widget QuestImageNoTaxi(width, height) {
-    return Container(
-      child: Image.asset('./kakaoT.png'),
-      width: width * 0.15,
-      height: height * 0.05,
-    );
-  }
-  //배달 이미지(배달음식 덜먹기)
-  Widget QuestImageNoOrder(width, height) {
-    return Container(
-      child: Image.asset('./baemin.png'),
-      width: width * 0.15,
-      height: height * 0.05,
-    );
-  }
-  //왕관 이미지(퀴즈킹)
-  Widget QuestImageQuizKing(width, height) {
-    return Container(
-      child: Image.asset('./crown.png'),
-      width: width * 0.15,
-      height: height * 0.05,
-    );
-  }
-  //투자 이미지(적금들기)
-  Widget QuestImageInvestment(width, height) {
-    return Container(
-      child: Image.asset('./investment.png'),
+      child: Image.asset(img_path),
       width: width * 0.15,
       height: height * 0.05,
     );
@@ -394,53 +349,21 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-              alignment: Alignment.centerLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              margin: EdgeInsets.only(top:4),
-              color: Color(0xffD1ECFF),
-              child: Text('출석 보상', style: _style.getTopicTextStyle())
-          ),
-          Container(
-              alignment: Alignment.bottomLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              color: Color(0xffD1ECFF),
-              child: Text('출석하면 받을 수 있어요!', style: _style.getInfoTextStyle())
-          ),
-          // Container(
-          //     alignment: Alignment.centerLeft,
-          //     width: width * 0.59,
-          //     height: height*0.03,
-          //     color: Colors.redAccent,
-          //     child: Text('경험치 + 5pt', style: _style.getGainExpTextStyle())
-          // ),
-          Exp5Mount(width, height),
+          questTitle(width, height, '출석 보상'),
+          questInfo(width, height, '출석하면 받을 수 있어요!'),
+          expMount(width, height,'경험치 + 5pt'),
         ]
     );
   }
+
   //상호작용 퀘스트 설명
   Widget QuestInfoInteraction(width, height) {
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-              alignment: Alignment.centerLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              margin: EdgeInsets.only(top:4),
-              color: Color(0xffD1ECFF),
-              child: Text('상호 작용 보상', style: _style.getTopicTextStyle())
-          ),
-          Container(
-              alignment: Alignment.bottomLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              color: Color(0xffD1ECFF),
-              child: Text('단디와 대화하면 받을 수 있어요!', style: _style.getInfoTextStyle())
-          ),
-          Exp5Mount(width, height),
+          questTitle(width, height, '상호 작용 보상'),
+          questInfo(width, height, '단디와 대화하면 받을 수 있어요!'),
+          expMount(width, height,'경험치 + 5pt'),
         ]
     );
   }
@@ -449,22 +372,9 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-              alignment: Alignment.centerLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              margin: EdgeInsets.only(top:4),
-              color: Color(0xffD1ECFF),
-              child: Text('택시 기사님 미안해요', style: _style.getTopicTextStyle())
-          ),
-          Container(
-              alignment: Alignment.bottomLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              color: Color(0xffD1ECFF),
-              child: Text('일주일 동안 택시를 타지 않으면 받을 수 있어요!', style: _style.getInfoTextStyle())
-          ),
-          Exp20Mount(width, height),
+          questTitle(width, height, '택시 기사님 미안해요'),
+          questInfo(width, height, '일주일 동안 택시를 타지 않으면 받을 수 있어요!'),
+          expMount(width, height,'경험치 + 20pt'),
         ]
     );
   }
@@ -473,22 +383,9 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-              alignment: Alignment.centerLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              margin: EdgeInsets.only(top:4),
-              color: Color(0xffD1ECFF),
-              child: Text('사실 우리는 집밥의 민족', style: _style.getTopicTextStyle())
-          ),
-          Container(
-              alignment: Alignment.bottomLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              color: Color(0xffD1ECFF),
-              child: Text('배달 음식을 일주일 동안 시켜먹지 않으면 받을 수 있어요!', style: _style.getInfoTextStyle())
-          ),
-          Exp20Mount(width, height),
+          questTitle(width, height, '사실 우리는 집밥의 민족'),
+          questInfo(width, height, '배달 음식을 일주일 동안 시켜먹지 않으면 받을 수 있어요!'),
+          expMount(width, height,'경험치 + 20pt'),
         ]
     );
   }
@@ -497,22 +394,9 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-              alignment: Alignment.centerLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              margin: EdgeInsets.only(top:4),
-              color: Color(0xffD1ECFF),
-              child: Text('금주의 퀴즈왕!', style: _style.getTopicTextStyle())
-          ),
-          Container(
-              alignment: Alignment.bottomLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              color: Color(0xffD1ECFF),
-              child: Text('일주일 간 총 40개의 퀴즈를 맞추면 받을 수 있어요.', style: _style.getInfoTextStyle())
-          ),
-          Exp20Mount(width, height),
+          questTitle(width, height, '금주의 퀴즈왕!'),
+          questInfo(width, height, '일주일 간 총 40개의 퀴즈를 맞추면 받을 수 있어요.'),
+          expMount(width, height,'경험치 + 20pt'),
         ]
     );
   }
@@ -521,88 +405,60 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-              alignment: Alignment.centerLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              margin: EdgeInsets.only(top:4),
-              color: Color(0xffD1ECFF),
-              child: Text('내일의 나를 위한 투자', style: _style.getTopicTextStyle())
-          ),
-          Container(
-              alignment: Alignment.bottomLeft,
-              width: width * 0.59,
-              height: height * 0.03,
-              color: Color(0xffD1ECFF),
-              child: Text('적금에 저축을 한 기록이 있다면 받을 수 있어요.', style: _style.getInfoTextStyle())
-          ),
-          Exp20Mount(width, height),
+          questTitle(width, height, '내일의 나를 위한 투자'),
+          questInfo(width, height, '적금에 저축을 한 기록이 있다면 받을 수 있어요.'),
+          expMount(width, height,'경험치 + 40pt'),
         ]
     );
   }
-  //5경험치 보상
-  Widget Exp5Mount(width, height){
+  //퀘스트 제목
+  Widget questTitle(width, height, title){
+    return Container(
+        alignment: Alignment.centerLeft,
+        width: width * 0.59,
+        height: height * 0.03,
+        margin: EdgeInsets.only(top:4),
+        color: Color(0xffD1ECFF),
+        child: Text(title, style: _style.getTopicTextStyle())
+    );
+  }
+  //퀘스트 정보
+  Widget questInfo(width, height, info){
+    return Container(
+        alignment: Alignment.bottomLeft,
+        width: width * 0.59,
+        height: height * 0.03,
+        color: Color(0xffD1ECFF),
+        child: Text(info, style: _style.getInfoTextStyle())
+    );
+  }
+
+  //경험치 보상
+  Widget expMount(width, height, exp){
     return Container(
         alignment: Alignment.bottomLeft,
         width: width * 0.59,
         height: height*0.02,
         margin: EdgeInsets.only(bottom:3),
         color: Color(0xffD1ECFF),
-        child: Text('경험치 + 5pt', style: _style.getGainExpTextStyle())
+        child: Text(exp, style: _style.getGainExpTextStyle())
     );
   }
-  //20경험치 보상
-  Widget Exp20Mount(width, height){
-    return Container(
-        alignment: Alignment.centerLeft,
-        width: width * 0.59,
-        height: height*0.02,
-        margin: EdgeInsets.only(bottom:3),
-        color: Color(0xffD1ECFF),
-        child: Text('경험치 + 20pt', style: _style.getGainExpTextStyle())
-    );
-  }
-  //40경험치 보상
-  Widget Exp40Mount(width, height){
-    return Container(
-        alignment: Alignment.centerLeft,
-        width: width * 0.59,
-        height: height*0.02,
-        margin: EdgeInsets.only(bottom:3),
-        color: Color(0xffD1ECFF),
-        child: Text('경험치 + 40pt', style: _style.getGainExpTextStyle())
-    );
-  }
-
-
   //받기 누르기 전
   Widget QuestCompleteBefo(width, height) {
-    return Container(
-        alignment: Alignment.center,
-        width: width * 0.19,
-        height: height * 0.05,
-        margin: EdgeInsets.only(left: 12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(right:2),
-                width: width * 0.05,
-                height: height,
-                child: Image.asset('./gift-box.png')
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 3),
-              child: Text("보상 받기", style: _style.getRewardTextStyle()),
-            ),
-          ],
-        )
+    return InkWell(
+      onTap: (){},
+      child: Container(
+          alignment: Alignment.center,
+          width: width * 0.19,
+          height: height * 0.05,
+          margin: EdgeInsets.only(left: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+          ),
+        child: gainReward(width, height),
+      ),
     );
   }
   //받기 누른 후
@@ -624,37 +480,27 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
           color: _buttonColor ? Colors.grey : Colors.white,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(right:2),
-              width: width * 0.05,
-              height: height,
-              child: Image.asset('./gift-box.png')
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 3),
-              child: Text("보상 받기", style: _style.getRewardTextStyle()),
-            ),
-          ],
-        )
+        child: gainReward(width, height),
       )
     );
   }
-
-//오늘 보상
-  Widget TodayReward(width, height) {
-    return Column(
-        children: [
-          Container(
-            width: width,
-            height: height * 0.5,
-          ),
-          Container(),
-        ]
+  Widget gainReward(width, height){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.only(right:2),
+            width: width * 0.05,
+            height: height,
+            child: Image.asset('./images/gift-box.png')
+        ),
+        Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(left: 3),
+          child: Text("보상 받기", style: _style.getRewardTextStyle()),
+        ),
+      ],
     );
   }
 //남은 시간
@@ -665,7 +511,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
           width: 10,
           height: 10,
           margin: EdgeInsets.only(left: 7, bottom:5),
-          child: Image.asset('./wall-clock.png'),
+          child: Image.asset('./images/wall-clock.png'),
         ),
         Container(
             margin: EdgeInsets.only(left: 3, bottom: 5),

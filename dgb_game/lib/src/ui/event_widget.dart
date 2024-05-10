@@ -35,9 +35,9 @@ class _EventWidgetState extends State<EventWidget> {
                 children:[
                   headerWidget(queryWidth, queryHeight * 0.09),
                   title(queryWidth, queryHeight * 0.09),
-                  eventBlock(queryWidth, queryHeight, 'event1.jpg'),
-                  eventBlock(queryWidth, queryHeight, 'event2.jpg'),
-                  eventBlock(queryWidth, queryHeight, 'event3.jpg')
+                  eventBlock(queryWidth, queryHeight, 'images/event1.jpg'),
+                  eventBlock(queryWidth, queryHeight, 'images/event2.jpg'),
+                  eventBlock(queryWidth, queryHeight, 'images/event3.jpg')
 
                   //eventBlock(queryWidth, queryHeight, 'event1.png'),
                 ]
@@ -79,7 +79,10 @@ class _EventWidgetState extends State<EventWidget> {
       return Column(
         children:[
           // 이벤트 사진
-          Image.asset(eventName),
+          InkWell(
+            onTap: (){},
+            child: Image.asset(eventName),
+          ),
 
           // 힌색 컨테이너
           Container(

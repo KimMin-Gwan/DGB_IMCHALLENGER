@@ -7,6 +7,8 @@ import 'package:dgb_game/src/ui/style/home_style.dart'; // import DefaultTheme
 // Theme를 상속하여 기본 색깔을 유지하되 추가적인 색깡르 쓸것
 // 모르겠으면 home_style.dart에 내가 써둔거 참고할 것
 class QuestTheme extends DefaultTheme {
+  Color _backColor = Color(0xFFEFF6FE);
+  Color _topColor = Color(0xffE1F2FC);
   TextStyle _topicTextStyle = TextStyle();
   TextStyle _titleTextStyle = TextStyle();
   TextStyle _infoTextStyle = TextStyle();
@@ -35,4 +37,6 @@ class QuestTheme extends DefaultTheme {
   TextStyle getRecvTextStyle() => _recvTextStyle;
   TextStyle getRemainTimeTextStyle() => _remainTimeTextStyle;
   TextStyle getGainExpTextStyle() => _gainExpTextStyle;
+  Color getBackColor() => _backColor;
+  Color getTopColor() => _topColor;
 }

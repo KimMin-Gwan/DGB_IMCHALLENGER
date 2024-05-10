@@ -1,3 +1,4 @@
+import 'package:dgb_game/src/ui/quiz/quiz_widget2.dart';
 import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/quiz_style.dart';
 
@@ -54,15 +55,15 @@ class _QuizWidget1State extends State<QuizWidget1> {
               Container(
                   alignment: Alignment.bottomCenter,
                   width: width,
-                  height: height * 0.18,
+                  height: height * 0.14,
                   color: _style.getBodyColor(),
                   child: Text('퀴즈 풀기', style: _style.getTitleTextStyle()),
               ),
               Container(
                 alignment: Alignment.center,
-                child: Image.asset('./money_dan.png', width: 170,height: 170,),
+                child: Image.asset('./images/money_dan.png', width: 170,height: 170,),
                 width: width,
-                height: height * 0.32,
+                height: height * 0.28,
                 color: _style.getBodyColor(),
 
               ),
@@ -96,7 +97,7 @@ class _QuizWidget1State extends State<QuizWidget1> {
                   alignment: Alignment.centerRight,
                   width: width * 0.339,
                   height: 10,
-                  child: Image.asset('./info.png'),
+                  child: Image.asset('./images/info.png'),
                 ),
                 Container(
                   alignment: Alignment.centerRight,
@@ -155,20 +156,25 @@ class _QuizWidget1State extends State<QuizWidget1> {
       height: height * 0.27,
       color: _style.getBodyColor(),
       child: Column(
-        children: [
-          Container(
-            child: bottom1(width, height),
-          ),
-          Container(
-            alignment: Alignment.center,
-            width: width * 0.85,
-            height: height * 0.09,
-            color: Color(0xFFF7F7F7),
-            child: Text("뒤로가기", style: _style.getTopicTextStyle()),
-          ),
-        ],
+          children: [
+            Container(
+              child: bottom1(width, height),
+            ),
+            InkWell(
+              onTap: (){
+                Navigator.pop(context);
+              },
+              child: Container(
+                alignment: Alignment.center,
+                width: width * 0.85,
+                height: height * 0.09,
+                color: Color(0xFFF7F7F7),
+                child: Text("뒤로가기", style: _style.getTopicTextStyle()),
+              ),
+            ),
+          ],
       ),
-      );
+    );
   }
 
   Widget bottom1(width, height){
@@ -181,35 +187,42 @@ class _QuizWidget1State extends State<QuizWidget1> {
           child: Text("한 퀴즈 당 총 10개의 문제가 나옵니다."),
         ),
         Container(
-          width: width * 0.85,
-          height: height * 0.09,
-          color: _style.getStartColor(),
-          child: Row(
-            children: [
-              Container(
-                alignment: Alignment.center,
-                child: Image.asset('./heart.png'),
-                width: width*0.07,
-                height: height,
+                width: width * 0.85,
+                height: height * 0.09,
                 color: _style.getStartColor(),
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: Text('-1'),
-                width: width*0.06,
-                height: height,
-                color: _style.getStartColor(),
-              ),
-              Container(
-                alignment: Alignment.center,
-                width: width * 0.59,
-                height: height,
-                child: Text("퀴즈 시작", style: _style.getTopicTextStyle()),
-              ),
-            ],
-          )
-        )
-      ],
+                child: Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset('./images/heart.png'),
+                      width: width*0.07,
+                      height: height,
+                      color: _style.getStartColor(),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text('-1'),
+                      width: width*0.06,
+                      height: height,
+                      color: _style.getStartColor(),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => QuizWidget2())
+                        );
+                        },
+                      child:Container(
+                        alignment: Alignment.center,
+                        width: width * 0.59,
+                        height: height,
+                        child: Text("퀴즈 시작", style: _style.getTopicTextStyle()),
+                      ),
+                    ),
+                  ]
+                ),
+        ),
+      ]
     );
   }
 
