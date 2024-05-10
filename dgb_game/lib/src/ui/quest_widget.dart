@@ -351,7 +351,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
         children: [
           questTitle(width, height, '출석 보상'),
           questInfo(width, height, '출석하면 받을 수 있어요!'),
-          expMount(width, height,'경험치 + 5pt'),
+          expMount(width, height,'경험치 + 30pt'),
         ]
     );
   }
@@ -363,7 +363,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
         children: [
           questTitle(width, height, '상호 작용 보상'),
           questInfo(width, height, '단디와 대화하면 받을 수 있어요!'),
-          expMount(width, height,'경험치 + 5pt'),
+          expMount(width, height,'경험치 + 30pt'),
         ]
     );
   }
@@ -374,7 +374,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
         children: [
           questTitle(width, height, '택시 기사님 미안해요'),
           questInfo(width, height, '일주일 동안 택시를 타지 않으면 받을 수 있어요!'),
-          expMount(width, height,'경험치 + 20pt'),
+          expMount(width, height,'경험치 + 40pt'),
         ]
     );
   }
@@ -385,7 +385,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
         children: [
           questTitle(width, height, '사실 우리는 집밥의 민족'),
           questInfo(width, height, '배달 음식을 일주일 동안 시켜먹지 않으면 받을 수 있어요!'),
-          expMount(width, height,'경험치 + 20pt'),
+          expMount(width, height,'경험치 + 40pt'),
         ]
     );
   }
@@ -396,7 +396,7 @@ class _QuestBodyWidgetState extends State<QuestBodyWidget> {
         children: [
           questTitle(width, height, '금주의 퀴즈왕!'),
           questInfo(width, height, '일주일 간 총 40개의 퀴즈를 맞추면 받을 수 있어요.'),
-          expMount(width, height,'경험치 + 20pt'),
+          expMount(width, height,'경험치 + 40pt'),
         ]
     );
   }
