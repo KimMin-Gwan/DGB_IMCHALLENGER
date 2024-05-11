@@ -56,16 +56,15 @@ class _QuizWidget2State extends State<QuizWidget2> {
   bool flag = false;
   void answerButton(){
     setState(() {
-
-      if(index<10) {
+      if(index<9){
         index++;
         ans_num++;
-        num++;
         // _buttonColor = false;
         current_block = -1;
-        print(index);
-        print(num);
+        //print(index);
+        //print(num);
       }
+      num++;
     });
   }
   String imgg = './images/sad_dan.png';
@@ -91,7 +90,7 @@ class _QuizWidget2State extends State<QuizWidget2> {
   bool falseClick = false;
   void trueFalse(){
       setState(() {
-        if(num == quizList.length){
+        if(num > quizList.length){
           Navigator.push(context,
               MaterialPageRoute(builder: (context)=>QuizResult())
           );
@@ -360,6 +359,8 @@ class _QuizWidget2State extends State<QuizWidget2> {
         setState(() {
               isCorrect();
               answerButton();
+              print('index $index');
+              print('num $num');
         });
         },
       child: Container(
