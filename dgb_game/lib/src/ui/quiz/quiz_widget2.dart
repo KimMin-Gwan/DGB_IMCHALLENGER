@@ -91,7 +91,7 @@ class _QuizWidget2State extends State<QuizWidget2> {
   bool falseClick = false;
   void trueFalse(){
       setState(() {
-        if(index == quizList.length){
+        if(num == quizList.length){
           Navigator.push(context,
               MaterialPageRoute(builder: (context)=>QuizResult())
           );
