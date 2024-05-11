@@ -89,7 +89,5 @@ class HomeScaffoldTheme extends DefaultTheme{
   TextStyle getAutoExpTextStyle() => _autoExpTextStyle;
   TextStyle getAutoExpHourTextStyle() => _autoExpHourTextStyle;
   BoxDecoration getContainerDecoration() => _containerDecoration;
-
-
 }
 

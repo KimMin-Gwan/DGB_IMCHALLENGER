@@ -70,8 +70,8 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
         children: [
           Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/background.jpg'),
+                image: DecorationImage(
+                image: AssetImage('images/background.png'),
                 fit:BoxFit.cover,
               )
             ),
@@ -257,8 +257,8 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
             height : height * 0.08,
             child: Column(
               children: [
-                autoExpTable(width, height),
-                heartTable(width, height)
+                //autoExpTable(width, height),
+                //heartTable(width, height)
               ],
             )
           ),
@@ -289,6 +289,9 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
       )
     );
   }
+
+
+  /*
 
   Widget heartTable(width, height){
     width = width * 0.5;
@@ -343,6 +346,8 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
       )
     );
   }
+
+   */
 
 
 }

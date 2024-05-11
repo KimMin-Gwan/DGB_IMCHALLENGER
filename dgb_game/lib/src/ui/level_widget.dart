@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/level_style.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'dart:math';
 
 class LevelWidget extends StatefulWidget {
   const LevelWidget({super.key});
@@ -20,6 +22,7 @@ class _LevelWidgetState extends State<LevelWidget> {
   List<String> rewordItemName = [
     '야구모자', '전공지식', '가구', '강아지', '200원'
   ];
+  double containerSizeForOffset = 0.0;
 
   @override
   void initState() {
@@ -29,6 +32,10 @@ class _LevelWidgetState extends State<LevelWidget> {
       setState(() {
         offset = _scrollController.offset;
       });
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(containerSizeForOffset,
+          duration: const Duration(milliseconds: 200), curve: Curves.ease);
     });
   }
 
@@ -47,6 +54,8 @@ class _LevelWidgetState extends State<LevelWidget> {
     // 세로 최대 길이를 1200으로  한정
     if (queryHeight> maxHeight) {queryHeight= maxHeight; }
 
+    containerSizeForOffset = (queryWidth * 0.5 ) * 11 - queryWidth * 0.5 * 0.5;
+
     return Scaffold(
       body: Container(
         width: queryWidth,
@@ -54,9 +63,10 @@ class _LevelWidgetState extends State<LevelWidget> {
         color: _style.getBackGroundColor(),
         child : Column(
           children :[
-            headerWidget(queryWidth, queryHeight * 0.09),
-            rewordWidget(queryWidth, queryHeight * 0.4),
-        ]
+            headerWidget(queryWidth, queryHeight * 0.09 - 1.floorToDouble()),
+            rewordWidget(queryWidth, queryHeight * 0.4+1.floorToDouble()),
+            levelInformationWidget(queryWidth, queryHeight * 0.51),
+          ]
         )
       )
     );
@@ -124,6 +134,11 @@ class _LevelWidgetState extends State<LevelWidget> {
     return widgetList;
   }
 
+  // 그냥하면 소숫점 때문에 터져서 소숫점 버리게 하는 함수
+  double truncate(double number, int digit) {
+    num fac = pow(10.0, digit);
+    return (number * fac).truncateToDouble() / fac;
+  }
 
   // 리워드 슬라이드 애니메이션 결정 함수
   List sizeTransfer1(containerWidth, index){
@@ -146,7 +161,11 @@ class _LevelWidgetState extends State<LevelWidget> {
       middleSize= 8 - (1.5 / halfWidth) * nowOffset;
       bottomSize = 2 - (0.5 / halfWidth) * nowOffset;
     }
-    var result = [topSize/10, middleSize/10, bottomSize/10];
+    topSize = truncate(topSize, 3);
+    middleSize = truncate(middleSize, 3);
+    bottomSize = truncate(bottomSize, 3);
+
+    var result = [topSize /10 - 0.01, middleSize/10, bottomSize/10];
     return result;
   }
 
@@ -155,21 +174,15 @@ class _LevelWidgetState extends State<LevelWidget> {
     var containerHeightSize = height * 0.8;
     var resultList = sizeTransfer1(containerWidthSize, i);
 
-    print(resultList);
 
     return Container(
       alignment: Alignment.center ,
-      height: containerHeightSize,
+      height: containerHeightSize + 1,
       width: containerWidthSize,
       //color: Colors.green,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-            width: width * 0.2,
-            height: resultList[0],
-            //color : Colors.green,
-          ),
           Container(
             width: height * resultList[1],
             height: height * resultList[1],
@@ -193,41 +206,166 @@ class _LevelWidgetState extends State<LevelWidget> {
     double containerWidth = width*0.8;
     double containerHeigth = height*0.8;
 
+    print(containerHeigth);
+    print(containerHeigth *0.6);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children:[
+        Text((i+1).toString(),
+          style: _style.getRewordLevelText(),
+        ),
+        Container(
+          width:containerWidth,
+          height:containerHeigth,
+          decoration: _style.getRewordBoxDeco(),
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width:containerWidth*0.6,
+                height:containerHeigth*0.6,
+                //color: Colors.green,
+                child : Image.asset('images/rewordImage/$index.png',
+                fit:BoxFit.fill),
+              ),
+              Container(
+                alignment: Alignment.center,
+                width:containerWidth,
+                height:containerHeigth*0.1 + 20,
+                //color: Colors.orange,
+                child: Text(rewordItemName[index],
+                  style: _style.getRewordNameText(),
+                ),
+              )
+            ]
+          )
+        )
+      ]
+    );
+  }
+
+
+  // 하단부 전체
+  Widget levelInformationWidget(width, height){
     return Container(
       width: width,
       height: height,
-      //color : Colors.red,
+      color: _style.getMainContainerColor(),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
         children:[
-          Text((i+1).toString(),
-            style: _style.getRewordLevelText(),
-          ),
+          rewordArrow(width, height *0.4),
+          rewordButton(width, height * 0.35),
+          rewordExp(width, height * 0.25)
+        ]
+      )
+    );
+  }
+
+  Widget rewordArrow(width, height){
+    return Container(
+          width: width,
+          height: height,
+          child:Row(
+            children: [
+              Container(
+                  width:width * 0.3,
+                  height: height,
+                  color: _style.getMainContainerColor(),
+                  child: Column(
+                      children:[
+                        Container(width: width * 0.3, height: height*0.6,
+                          decoration: BoxDecoration(
+                              color: _style.getBackGroundColor(),
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(20),
+                              )),
+                        ),
+                      ]
+                  )
+              ),
+              Container(
+                  width:width * 0.4,
+                  height: height,
+                  color: _style.getBackGroundColor(),
+                  child:Container(
+                      width: width * 0.4,
+                      height: width * 0.4,
+                      decoration: _style.getRewordMiddleBoxDeco(),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(bottom: 20),
+                              width: width * 0.4 * 0.4,
+                              height: width * 0.4 * 0.4,
+                              child:Image.asset('images/rewordImage/arrow.png')
+                          ),
+                          Text("보상", style: _style.getRewordTitleText(),)
+                        ],
+                      )
+                  )
+              ),
+              Container(
+                  width:width * 0.3,
+                  height: height,
+                  color: _style.getMainContainerColor(),
+                  child: Column(
+                      children:[
+                        Container(width: width * 0.3, height: height*0.6,
+                            decoration: BoxDecoration(
+                                color: _style.getBackGroundColor(),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                )
+                            )
+                        )
+                      ]
+                  )
+              )
+            ],
+      )
+    );
+  }
+
+  Widget rewordButton(width, height){
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      width: width * 0.6,
+      height: height * 0.6,
+      child: ElevatedButton(
+        child: Text("현재 등급",
+          style: _style.getRewordButtonText(),
+        ),
+        onPressed: (){},
+      )
+    );
+  }
+
+  Widget rewordExp(width, height){
+    return Container(
+      margin: EdgeInsets.only(top: 40),
+      width: width,
+      height: height * 0.6,
+      child: Column(
+        children:[
           Container(
-            width:containerWidth,
-            height:containerHeigth,
-            decoration: _style.getRewordBoxDeco(),
-            child:Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width:containerWidth*0.6,
-                  height:containerHeigth*0.6,
-                  //color: Colors.green,
-                  child : Image.asset('images/rewordImage/$index.png',
-                  fit:BoxFit.fill),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  width:containerWidth,
-                  height:containerHeigth*0.1,
-                  //color: Colors.orange,
-                  child: Text(rewordItemName[index],
-                    style: _style.getRewordNameText(),
-                  ),
-                )
-              ]
-            )
+            width: width * 0.6,
+            height: height * 0.2,
+            child:Text("Exp"),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:[
+              LinearPercentIndicator(
+                width: width * 0.6,
+                lineHeight: 10,
+                percent:  0.9,
+                animation: true,
+                barRadius: Radius.circular(10),
+                progressColor: _style.getExpBarColor(),
+                trailing: Text("90%"),
+              )
+            ]
           )
         ]
       )
