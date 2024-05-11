@@ -274,13 +274,47 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
             child: Column(
               children: [
                 //autoExpTable(width, height),
-                //heartTable(width, height)
+                Container(
+                  width: width * 0.6,
+                  height: height * 0.03,
+                ),
+                heartTable(width, height),
               ],
             )
           ),
           quizButton(width, height),
         ]
       )
+    );
+  }
+  Widget heartTable(width, height){
+    return Stack(
+      children: [
+        Container(
+          child: Row(
+            children: [
+              Container(
+                width: width * 0.1,
+                height: height*0.05,
+                color: Colors.blue,
+              ),
+              Container(
+                width: width * 0.4,
+                height: height*0.05,
+                color: Colors.purple,
+              ),
+              Container(
+                width: width * 0.1,
+                height: height*0.05,
+                color: Colors.yellow,
+              ),
+            ],
+          ),
+        ),
+        Container(
+          child: Text('heart image'),
+        ),
+      ],
     );
   }
 
