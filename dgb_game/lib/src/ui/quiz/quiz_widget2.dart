@@ -48,41 +48,55 @@ class _QuizWidget2State extends State<QuizWidget2> {
   int current_block = -1;
   int ans_num = 0;
   int answer = -1;
+  List<String> img_path = [
+    './images/funny_dan.png', './images/sad_dan.png'
+  ];
 
-
+  bool img = false;
   bool flag = false;
   void answerButton(){
     setState(() {
-      index++;
-      ans_num++;
-      num = index + 1;
-      // _buttonColor = false;
-      current_block = -1;
-      if(index >= quizList.length){
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context)=>QuizResult())
-        );
+
+      if(index<10) {
+        index++;
+        ans_num++;
+        num++;
+        // _buttonColor = false;
+        current_block = -1;
+        print(index);
+        print(num);
       }
     });
   }
-
+  String imgg = './images/sad_dan.png';
+  String path = './images/funny_dan.png';
+  String fpath = './images/sad_dan.png';
+  String correct = '정답이에요!';
+  String fail = '틀렸어요!';
+  String res = '';
   void isCorrect(){
     if(current_block == answer_number[index])
       {
-        setState(() {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => QuizTrue())
-          );
-        });
+          flag = true;
+          imgg = path;
+          res = correct;
       }
     else
       {
-        setState(() {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => QuizFalse())
-          );
-        });
+          flag = true;
+          imgg = fpath;
+          res = fail;
       }
+  }
+  bool falseClick = false;
+  void trueFalse(){
+      setState(() {
+        if(index == quizList.length){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context)=>QuizResult())
+          );
+        }
+      });
   }
 
   @override
@@ -98,19 +112,70 @@ class _QuizWidget2State extends State<QuizWidget2> {
       queryHeight = maxHeight;
     }
     return Scaffold(
-      body: Container(
-        width: queryWidth,
-        height: queryHeight,
-        color: _style.getMainColor(),
-        child: Column(
-          children: [
-            backPart(queryWidth,queryHeight),
-            topPart(queryWidth,queryHeight),
-            middlePart(queryWidth,queryHeight),
-            bottomPart(queryWidth,queryHeight),
-          ],
-        )
+      body: Stack(
+        children: [
+          Container(
+              width: queryWidth,
+              height: queryHeight,
+              color: _style.getMainColor(),
+              child: Column(
+                children: [
+                  backPart(queryWidth,queryHeight),
+                  topPart(queryWidth,queryHeight),
+                  middlePart(queryWidth,queryHeight),
+                  bottomPart(queryWidth,queryHeight),
+                ],
+              )
+          ),
+          InkWell(
+            onTap: (){
+              setState(() {
+                flag = false;
+                imgg = './images/sad_dan.png';
+                res = '';
+                trueFalse();
+              });
+            },
+            child: Container(
+                width: queryWidth,
+                height: flag ? queryHeight : 0,
+                color: Colors.black26,
+                child: SizedBox(
+                    width: queryWidth,
+                    height: queryHeight*0.8,
+                    child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 20),
+                              width: queryWidth,
+                              height: queryHeight * 0.5,
+                              child: Image.asset(imgg),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              width: queryWidth,
+                              height: queryHeight * 0.1,
+                              child: Text('$res', style: TextStyle(fontSize: 36, color: Colors.white, fontWeight: FontWeight.w800),),
+                            )
+                          ],
+                        )
+                    )
+                )
+            )
+          ),
+        ],
       )
+    );
+  }
+
+  Widget trueImage(width, height){
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      width: width,
+      height: height * 0.5,
+      child: Image.asset('./images/happy_dan.png'),
     );
   }
 
@@ -294,9 +359,8 @@ class _QuizWidget2State extends State<QuizWidget2> {
         // isCorrect();
         setState(() {
               isCorrect();
+              answerButton();
         });
-        answerButton();
-
         },
       child: Container(
           alignment: Alignment.center,
