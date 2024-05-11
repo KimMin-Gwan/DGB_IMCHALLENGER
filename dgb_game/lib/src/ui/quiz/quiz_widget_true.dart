@@ -13,6 +13,8 @@ class _QuizTrueState extends State<QuizTrue> {
 
   final maxWidth = 400.0;
   final maxHeight = 900.0;
+  bool flag = true;
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -30,36 +32,44 @@ class _QuizTrueState extends State<QuizTrue> {
       body: Stack(
         children: [
           const QuizWidget2(),
-          Container(
-            width: queryWidth,
-            height: queryHeight,
-            color: Colors.black26,
-          ),
-          SizedBox(
-            width: queryWidth,
-            height: queryHeight*0.8,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 60),
-                child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    width: queryWidth,
-                    height: queryHeight * 0.5,
-                    child: Image.asset('./images/money_dan.png'),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: queryWidth,
-                    height: queryHeight * 0.1,
-                    child: Text('틀렸어요!', style: TextStyle(fontSize: 36, color: Colors.white, fontWeight: FontWeight.w800),),
+          InkWell(
+              onTap: (){
+                setState(() {
+                  flag = false;
+                });
+                Navigator.pop(context);
+              },
+              child: Container(
+                  width: queryWidth,
+                  height: flag ? queryHeight : 0,
+                  color: Colors.black26,
+                  child: SizedBox(
+                      width: queryWidth,
+                      height: queryHeight*0.8,
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 20),
+                                width: queryWidth,
+                                height: queryHeight * 0.5,
+                                child: Image.asset('./images/money_dan.png'),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                width: queryWidth,
+                                height: queryHeight * 0.1,
+                                child: Text('틀렸어요!', style: TextStyle(fontSize: 36, color: Colors.white, fontWeight: FontWeight.w800),),
+                              )
+                            ],
+                          )
+                      )
                   )
-                ],
               )
-            )
-            ),
-        ],
-      ),
+          )
+        ]
+      )
     );
   }
 
@@ -79,6 +89,9 @@ class _QuizTrueState extends State<QuizTrue> {
       color: Colors.black26,
       child: Image.asset('./images/money_dan.png'),);
   }
+
+  // Widget falseImage(width, height)
+
   Widget falseText(width, height){
     return Container(
       alignment: Alignment.center,

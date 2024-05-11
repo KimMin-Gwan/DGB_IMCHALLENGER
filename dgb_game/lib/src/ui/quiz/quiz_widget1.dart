@@ -24,8 +24,8 @@ class _QuizWidget1State extends State<QuizWidget1> {
     }
     double queryHeight = MediaQuery .of(context).size.height;
     // 세로 최대 길이를 1200으로  한정
-    if (queryWidth > maxHeight) {
-      queryWidth = maxHeight;
+    if (queryHeight > maxHeight) {
+      queryHeight = maxHeight;
     }
     return Scaffold(
       body: Container(
@@ -65,19 +65,12 @@ class _QuizWidget1State extends State<QuizWidget1> {
                 width: width,
                 height: height * 0.28,
                 color: _style.getBodyColor(),
-
               ),
             ],
-
           )
         ),
-
       ],
     );
-  }
-
-  Widget topTitle(width, height){
-    return Container();
   }
 
   Widget middleArea(width, height){
@@ -108,48 +101,53 @@ class _QuizWidget1State extends State<QuizWidget1> {
             )
           ),
           Container(
-
             width: width * 0.75,
             height: height * 0.14,
             decoration: BoxDecoration(
               color: _style.getBodyColor(),
               borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.black, width: 0.5),
             ),
-            child: Row(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  width: width * 0.36,
-                  height: height * 0.1,
-                  child: Text("나의 퀴즈 현황"),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  width: width * 0.36,
-                  height: height * 0.1,
-                  child: Column(
-                    children: [
-                    Container(
-                      alignment: Alignment.center,
-                      height: height * 0.05,
-                      child: Text("1324 / 6000"),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: height * 0.05,
-                      child: Text("(2648pt / 12000pt)"),
-                    ),
-                   ]
-                  )
-                ),
-              ],
-            ),
-
+            child: myQuiz(width, height),
           )
         ],
       ),
     );
   }
+  //나의 퀴즈 현황
+  Widget myQuiz(width, height){
+    return Row(
+      children: [
+        Container(
+          alignment: Alignment.center,
+          width: width * 0.36,
+          height: height * 0.1,
+          child: Text("나의 퀴즈 현황"),
+        ),
+        Container(
+            alignment: Alignment.center,
+            width: width * 0.36,
+            height: height * 0.1,
+            child: Column(
+                children: [
+                  currentQuizNum(width, height, "1324 / 6000"),
+                  currentQuizNum(width, height, "(2648pt / 12000pt)"),
+                ]
+            )
+        ),
+      ],
+    );
+  }
+  //현재 정보(맞춘 문제, 경험치)
+  Widget currentQuizNum(width, height, num_info){
+    return Container(
+      alignment: Alignment.center,
+      height: height * 0.05,
+      child: Text(num_info),
+    );
+  }
+
+
   Widget bottomArea(width, height){
     return Container(
       width: width,
@@ -166,9 +164,13 @@ class _QuizWidget1State extends State<QuizWidget1> {
               },
               child: Container(
                 alignment: Alignment.center,
-                width: width * 0.85,
-                height: height * 0.09,
-                color: Color(0xFFF7F7F7),
+                width: width * 0.87,
+                height: height * 0.087,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF7F7F7),
+                  borderRadius: BorderRadius.circular(9),
+                  border: Border.all(color: Colors.black, width: 0.5),
+                ),
                 child: Text("뒤로가기", style: _style.getTopicTextStyle()),
               ),
             ),
@@ -180,49 +182,63 @@ class _QuizWidget1State extends State<QuizWidget1> {
   Widget bottom1(width, height){
     return Column(
       children: [
-        Container(
-          alignment: Alignment.bottomRight,
-          width: width * 0.85,
-          height: height * 0.05,
-          child: Text("한 퀴즈 당 총 10개의 문제가 나옵니다."),
-        ),
-        Container(
-                width: width * 0.85,
-                height: height * 0.09,
-                color: _style.getStartColor(),
-                child: Row(
+        infoDetail(width, height, "한 퀴즈 당 총 10개의 문제가 나옵니다."),
+        InkWell(
+          onTap: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => QuizWidget2())
+            );
+            },
+          child: Column(
+              children: [
+                Stack(
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      child: Image.asset('./images/heart.png'),
-                      width: width*0.07,
-                      height: height,
-                      color: _style.getStartColor(),
+                      width: width * 0.87,
+                      height: height * 0.087,
+                      margin: EdgeInsets.only(left: 27),
+                      decoration: BoxDecoration(
+                        color: _style.getStartColor(),
+                        borderRadius: BorderRadius.circular(9),
+                        border: Border.all(color: Colors.black, width: 0.5),
+                      ), 
+                      child: Text("퀴즈 시작", style: _style.getTopicTextStyle()),
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text('-1'),
-                      width: width*0.06,
-                      height: height,
-                      color: _style.getStartColor(),
-                    ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => QuizWidget2())
-                        );
-                        },
-                      child:Container(
-                        alignment: Alignment.center,
-                        width: width * 0.59,
-                        height: height,
-                        child: Text("퀴즈 시작", style: _style.getTopicTextStyle()),
-                      ),
-                    ),
-                  ]
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 40,right: 8,top: 17,bottom: 17),
+                            child: Image.asset('./images/heart.png', width: 28,height: 28,),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text('-1'),
+
+                          )
+                        ]
+                    )
+                  ],
                 ),
-        ),
+                Container(
+                  width: width * 0.87,
+                  height: 8,
+                  color: _style.getBodyColor(),
+                )
+              ]
+          )
+        )
       ]
+    );
+  }
+
+  Widget infoDetail(width, height, info){
+    return Container(
+      alignment: Alignment.bottomRight,
+      width: width * 0.85,
+      height: height * 0.05,
+      child: Text(info),
     );
   }
 

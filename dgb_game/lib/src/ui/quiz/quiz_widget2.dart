@@ -1,3 +1,4 @@
+import 'package:dgb_game/src/ui/quiz/quiz_widget_result.dart';
 import 'package:dgb_game/src/ui/quiz/quiz_widget_true.dart';
 import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/quiz_style.dart';
@@ -15,6 +16,64 @@ class _QuizWidget2State extends State<QuizWidget2> {
   final maxWidth = 400.0;
   final maxHeight = 900.0;
   bool _buttonColor = false;
+  int index = 0;
+  int num = 1;
+  List<String> quizList = [
+    '한 가지 자산에 몰아서 투자하지 않고 여러 자산에 분산 투자하는 가장 주된 목적은?',
+    '국가가 과도한 빚 부담을 이겨내지 못하고 상환능력을 잃을 때 일어날 수 있는 상황은?',
+    "우리나라의 '이것'이 가파르게 증가해 지난해 1126조7000억원을 기록했다. 재정건전성 악화 우려를 키우고 있는 이 수치는?",
+    '대기업과 고소득자의 성장을 촉진하면 그 혜택이 중소기업과 서민으로 이어져 경제 전체에 도움이 된다는 이론은?',
+    '한국은행이 연 8회 개최하는 금융통화위원회에서 결정하는 것은?',
+    "달러화가 대표적 '이것'으로 통한다. 무역, 금융 등 국제 거래에서 보편적으로 쓰이는 화폐를 뜻하는 이것은?",
+    "미국 경제성장률은 둔화하고 물가상승률은 고공행진하면서 '이것'에 대한 우려가 다시 높아졌다. 이것에 적절한 단어는?",
+    '부가가치세와 같이 세금을 납부하는 주체와 실제 부담하는 주체가 다른 세금을 뜻하는 말은?',
+    '코인의 가치를 법정화폐에 연동하는 등의 방식으로 가격이 안정적으로 유지되도록 설계한 암호화폐는?',
+    '한국은 1997년 외환위기 당시 이 국제기구에서 자금을 지원받고 강도 높은 구조조정을 했다. ‘국제통화기금’을 뜻하는 이곳은?',
+  ];
+
+  List<List<String>> answerList = [
+    ['복리 효과','과세 이연','절세 효과','위험 회피'], //4
+    ['캐즘', '어닝쇼크', '디폴트', '유동성랠리'],  //3
+    ['가계부채','국가채무','통화량','CDS프리미엄'], //2
+    ['낙수효과','분수효과','톱니효과','기저효과'], //1
+    ['코픽스','가산금리','기준금리','우대금리'], //3
+    ['핫머니','통화스와프','안전자산','기축통화'], //4
+    ['디플레이션','스태그플레이션','빅스텝','베이비스텝'], //2
+    ['준조세','누진세','직접세','간접세'], //4
+    ['비트코인','대체불가능코인','다크코인','스테이블코인'], //4
+    ['IMF','WB','WTO','G7'], //1
+  ];
+  List<int> answer_number = [4,3,2,1,3,4,2,4,4,1];
+  int current_block = -1;
+  int ans_num = 0;
+  int answer = -1;
+
+
+  bool flag = false;
+  void answerButton(){
+    setState(() {
+      index++;
+      ans_num++;
+      num = index + 1;
+      // _buttonColor = false;
+      current_block = -1;
+    });
+  }
+
+  void isCorrect(){
+    if(current_block == answer_number[index])
+      {
+        setState(() {
+          print(555555);
+        });
+      }
+    else
+      {
+        setState(() {
+          print(666666666);
+        });
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +84,8 @@ class _QuizWidget2State extends State<QuizWidget2> {
     }
     double queryHeight = MediaQuery .of(context).size.height;
     // 세로 최대 길이를 1200으로  한정
-    if (queryWidth > maxHeight) {
-      queryWidth = maxHeight;
+    if (queryHeight > maxHeight) {
+      queryHeight = maxHeight;
     }
     return Scaffold(
       body: Container(
@@ -66,11 +125,12 @@ class _QuizWidget2State extends State<QuizWidget2> {
       child: Column(
         children: [
         numQuest(width, height),
-        question(width, height, '한 가지 자산에 몰아서 투자하지 않고 여러 자산에 분산 투자하는 가장 주된 목적은?'),
+        question(width, height, quizList[index]),
       ]
       ),
     );
   }
+
   Widget numQuest(width, height){
     return Container(
       width: width,
@@ -83,13 +143,12 @@ class _QuizWidget2State extends State<QuizWidget2> {
             child: Image.asset('./images/think.png'),
             width: 35,
             height: height * 0.07,
-
           ),
           Container(
               alignment: Alignment.topCenter,
               width: width * 0.5,
               height: height * 0.03,
-              child: Text('1/10')
+              child: Text('$num/10')
           ),
         ],
       ),
@@ -112,21 +171,25 @@ class _QuizWidget2State extends State<QuizWidget2> {
       color: _style.getMainColor(),
       child: Column(
         children: [
-          selectBox(width, height, '복리 효과'),
-          selectedBox(width, height, '과세 이연'),
-          selectBox(width, height, '절세 효과'),
-          selectBox(width, height, '위험 회피'),
+          selectedBox(width, height, answerList[ans_num][0],0),
+          selectedBox(width, height, answerList[ans_num][1],1),
+          selectedBox(width, height, answerList[ans_num][2],2),
+          selectedBox(width, height, answerList[ans_num][3],3),
         ],
       )
     );
   }
 
   //선택전
-  Widget selectBox(width, height, example){
+  Widget selectBox(width, height, example, int blockIndex){
     return Column(
       children: [
         InkWell(
-          onTap: (){},
+          onTap: (){
+            setState(() {
+              current_block = blockIndex;
+            });
+          },
           child: Container(
               alignment: Alignment.center,
               width: width * 0.96,
@@ -134,6 +197,7 @@ class _QuizWidget2State extends State<QuizWidget2> {
               decoration: BoxDecoration(
                 color: Color(0xffF7F7F7),
                 borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: Colors.black, width: 0.5),
               ),
               child: Text(example, style: _style.getExampleTextStyle())
           ),
@@ -148,7 +212,7 @@ class _QuizWidget2State extends State<QuizWidget2> {
   }
 
   //선택된 버튼
-  Widget selectedBox(width, height, example){
+  Widget selectedBox(width, height, example,int blockIndex){
     return Column(
           children: [
             InkWell(
@@ -156,7 +220,8 @@ class _QuizWidget2State extends State<QuizWidget2> {
                 print("버튼눌림");
                 print(_buttonColor);
                 setState(() {
-                  _buttonColor = !_buttonColor;
+                  current_block = blockIndex;
+                  // _buttonColor = !_buttonColor;
                 });
                 },
               child: Container(
@@ -164,8 +229,9 @@ class _QuizWidget2State extends State<QuizWidget2> {
                   width: width * 0.96,
                   height: height * 0.11,
                   decoration: BoxDecoration(
-                    color: _buttonColor ? Color(0xff038AE4) : Color(0xffF7F7F7),
+                    color: current_block==blockIndex ? Color(0xff038AE4) : Color(0xffF7F7F7),
                     borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.black, width: 0.5),
                   ),
                   child: Text(example, style: _style.getExampleTextStyle())
               ),
@@ -205,37 +271,43 @@ class _QuizWidget2State extends State<QuizWidget2> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: Colors.black, width: 0.5),
         ),
         child: Text('건너뛰기', style: _style.getQuestTextStyle()),
       ),
     );
   }
   Widget decision(width, height){
-    return Stack(
-        children: [
-          InkWell(
-            onTap: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => QuizTrue())
-              );
-            },
-            child: Container(
-                alignment: Alignment.center,
-                width: width * 0.45,
-                height: height,
-                margin: EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Text('결정', style: _style.getQuestTextStyle())
-            ),
-          )
-        ]
+    return InkWell(
+      onTap: (){
+        answerButton();
+        isCorrect();
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => QuizTrue())
+        );
+        // setState(() {
+        //   if(num>quizList.length)
+        //   {
+        //     Navigator.push(context,
+        //         MaterialPageRoute(builder: (context) => QuizResult())
+        //     );
+        //   }
+        // });
+
+        },
+      child: Container(
+          alignment: Alignment.center,
+          width: width * 0.45,
+          height: height,
+          margin: EdgeInsets.only(bottom: 10),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.black, width: 0.5),
+          ),
+          child: Text('결정', style: _style.getQuestTextStyle())
+      ),
     );
   }
-
-
-
 
 }
