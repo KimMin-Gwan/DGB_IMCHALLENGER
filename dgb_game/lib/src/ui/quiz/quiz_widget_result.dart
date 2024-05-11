@@ -160,7 +160,7 @@ class _QuizResultState extends State<QuizResult> {
                         child: Text('8 / 10'),
                       ),
                       Container(
-                        child: Text('exp'),
+                        child: Text('(+16pt)'),
                       )
                     ],
                   ),
