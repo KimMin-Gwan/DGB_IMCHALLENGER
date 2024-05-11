@@ -1,3 +1,4 @@
+import 'package:dgb_game/src/ui/quiz/quiz_widget_false.dart';
 import 'package:dgb_game/src/ui/quiz/quiz_widget_result.dart';
 import 'package:dgb_game/src/ui/quiz/quiz_widget_true.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,11 @@ class _QuizWidget2State extends State<QuizWidget2> {
       num = index + 1;
       // _buttonColor = false;
       current_block = -1;
+      if(index >= quizList.length){
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context)=>QuizResult())
+        );
+      }
     });
   }
 
@@ -64,13 +70,17 @@ class _QuizWidget2State extends State<QuizWidget2> {
     if(current_block == answer_number[index])
       {
         setState(() {
-          print(555555);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => QuizTrue())
+          );
         });
       }
     else
       {
         setState(() {
-          print(666666666);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => QuizFalse())
+          );
         });
       }
   }
@@ -187,7 +197,7 @@ class _QuizWidget2State extends State<QuizWidget2> {
         InkWell(
           onTap: (){
             setState(() {
-              current_block = blockIndex;
+              current_block = blockIndex+1;
             });
           },
           child: Container(
@@ -220,7 +230,8 @@ class _QuizWidget2State extends State<QuizWidget2> {
                 print("버튼눌림");
                 print(_buttonColor);
                 setState(() {
-                  current_block = blockIndex;
+                  current_block = blockIndex+1;
+                  print(current_block);
                   // _buttonColor = !_buttonColor;
                 });
                 },
@@ -229,7 +240,7 @@ class _QuizWidget2State extends State<QuizWidget2> {
                   width: width * 0.96,
                   height: height * 0.11,
                   decoration: BoxDecoration(
-                    color: current_block==blockIndex ? Color(0xff038AE4) : Color(0xffF7F7F7),
+                    color: current_block==blockIndex+1 ? Color(0xff038AE4) : Color(0xffF7F7F7),
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.black, width: 0.5),
                   ),
@@ -280,19 +291,11 @@ class _QuizWidget2State extends State<QuizWidget2> {
   Widget decision(width, height){
     return InkWell(
       onTap: (){
+        // isCorrect();
+        setState(() {
+              isCorrect();
+        });
         answerButton();
-        isCorrect();
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => QuizTrue())
-        );
-        // setState(() {
-        //   if(num>quizList.length)
-        //   {
-        //     Navigator.push(context,
-        //         MaterialPageRoute(builder: (context) => QuizResult())
-        //     );
-        //   }
-        // });
 
         },
       child: Container(

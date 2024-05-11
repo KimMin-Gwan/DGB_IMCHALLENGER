@@ -1,9 +1,11 @@
 import 'package:dgb_game/src/ui/quiz/quiz_widget2.dart';
+import 'package:dgb_game/src/ui/quiz/quiz_widget_result.dart';
 import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/quiz_style.dart';
 
 class QuizTrue extends StatefulWidget {
   const QuizTrue({super.key});
+
 
   @override
   State<QuizTrue> createState() => _QuizTrueState();
@@ -31,7 +33,7 @@ class _QuizTrueState extends State<QuizTrue> {
     return Scaffold(
       body: Stack(
         children: [
-          const QuizWidget2(),
+          QuizWidget2(),
           InkWell(
               onTap: (){
                 setState(() {
@@ -54,13 +56,13 @@ class _QuizTrueState extends State<QuizTrue> {
                                 margin: EdgeInsets.only(top: 20),
                                 width: queryWidth,
                                 height: queryHeight * 0.5,
-                                child: Image.asset('./images/money_dan.png'),
+                                child: Image.asset('./images/funny_dan.png'),
                               ),
                               Container(
                                 alignment: Alignment.center,
                                 width: queryWidth,
                                 height: queryHeight * 0.1,
-                                child: Text('틀렸어요!', style: TextStyle(fontSize: 36, color: Colors.white, fontWeight: FontWeight.w800),),
+                                child: Text('정답이에요!', style: TextStyle(fontSize: 36, color: Colors.white, fontWeight: FontWeight.w800),),
                               )
                             ],
                           )

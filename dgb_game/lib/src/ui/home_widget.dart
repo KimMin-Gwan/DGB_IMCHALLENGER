@@ -1,5 +1,6 @@
 //import 'dart:html';
 
+import 'package:dgb_game/src/ui/quiz/quiz_widget_result.dart';
 import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/home_style.dart';
 import 'package:percent_indicator/percent_indicator.dart';

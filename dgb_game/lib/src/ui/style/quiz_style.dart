@@ -9,26 +9,34 @@ class QuizTheme extends DefaultTheme{
   Color _bodyColor = Color(0xffFFFFFF);
   Color _startColor = Color(0xff89C7F2);
   Color _exampleColor = Color(0xffF7F7F7);
+  Color _percentBarColor = Color(0xffe96c6c);
   TextStyle _titleTextStyle = TextStyle();
   TextStyle _exampleTextStyle = TextStyle();
   TextStyle _questTextStyle = TextStyle();
   TextStyle _infoTextStyle = TextStyle();
   TextStyle _topicTextStyle = TextStyle();
+  TextStyle _levelTextStyle = TextStyle();
 
   QuizTheme(){
-    _titleTextStyle = TextStyle(fontSize:30, color: getRealBlack(), fontWeight: FontWeight.w600);
+    _titleTextStyle = TextStyle(fontSize:40, color: getRealBlack(), fontWeight: FontWeight.w600);
     _exampleTextStyle = TextStyle(fontSize:20, color: getRealBlack(), fontWeight: FontWeight.w600);
     _questTextStyle = TextStyle(fontSize:20, color: getRealBlack(), fontWeight: FontWeight.w300);
     _infoTextStyle = TextStyle(fontSize:9, color: getRealBlack(), fontWeight: FontWeight.w200);
     _topicTextStyle = TextStyle(fontSize:15, color: getRealBlack(), fontWeight: FontWeight.w600);
+    _levelTextStyle = TextStyle(fontSize: 27, color: getRealBlack(),
+        fontWeight: FontWeight.w900,
+        shadows: [Shadow(offset: Offset(2.0, 2.0), blurRadius: 4.0, color: getRealBlack())]);
+
   }
   Color getExampleColor() => _exampleColor;
   Color getMainColor() => _mainColor;
   Color getBodyColor() => _bodyColor;
   Color getStartColor() => _startColor;
+  Color getPercentBarColor() => _percentBarColor;
   TextStyle getTitleTextStyle() => _titleTextStyle;
   TextStyle getExampleTextStyle() => _exampleTextStyle;
   TextStyle getQuestTextStyle() => _questTextStyle;
   TextStyle getInfoTextStyle() => _infoTextStyle;
   TextStyle getTopicTextStyle() => _topicTextStyle;
+  TextStyle getlevelTextStyle() => _levelTextStyle;
 }

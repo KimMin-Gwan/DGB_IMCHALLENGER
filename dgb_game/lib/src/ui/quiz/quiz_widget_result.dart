@@ -1,6 +1,8 @@
+import 'package:dgb_game/src/ui/home_widget.dart';
 import 'package:dgb_game/src/ui/quiz/quiz_widget2.dart';
 import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/quiz_style.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class QuizResult extends StatefulWidget {
   const QuizResult({super.key});
@@ -48,7 +50,7 @@ class _QuizResultState extends State<QuizResult> {
       children: [
         Container(
             width: width,
-            height: height * 0.5,
+            height: height * 0.48,
             color: _style.getRealWhite(),
             child: Column(
               children: [
@@ -57,11 +59,11 @@ class _QuizResultState extends State<QuizResult> {
                   width: width,
                   height: height * 0.14,
                   color: _style.getBodyColor(),
-                  child: Text('퀴즈 풀기', style: _style.getTitleTextStyle()),
+                  child: Text('퀴즈 결과', style: _style.getTitleTextStyle()),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: Image.asset('./images/money_dan.png', width: 170,height: 170,),
+                  child: Image.asset('./images/dan_ddok.png', width: 170,height: 170,),
                   width: width,
                   height: height * 0.28,
                   color: _style.getBodyColor(),
@@ -76,77 +78,149 @@ class _QuizResultState extends State<QuizResult> {
   Widget middleArea(width, height){
     return Container(
       width: width,
-      height: height * 0.23,
+      height: height * 0.25,
       color: _style.getMainColor(),
       child: Column(
         children: [
           Container(
-              alignment: Alignment.bottomRight,
-              width: width * 0.75,
-              height: height * 0.05,
-              child: Row(
-                children: [
-                  Container(
-                    alignment: Alignment.centerRight,
-                    width: width * 0.339,
-                    height: 10,
-                    child: Image.asset('./images/info.png'),
-                  ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    width: width * 0.411,
-                    child: Text("문제를 1개 맞추면 2pt를 받을 수 있어요.", style: _style.getInfoTextStyle()),
-                  ),
-                ],
-              )
+          width: width,
+          height: height*0.128,
+          color: _style.getMainColor(),
+          child: myScore(width, height),
           ),
           Container(
-            width: width * 0.75,
-            height: height * 0.14,
-            decoration: BoxDecoration(
-              color: _style.getBodyColor(),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.black, width: 0.5),
-            ),
-            child: myQuiz(width, height),
-          )
-        ],
+            width: width,
+            height: height*0.122,
+            color: _style.getMainColor(),
+            child: currentGrade(width, height),
+          ),
+          ]
       ),
     );
   }
-  //나의 퀴즈 현황
-  Widget myQuiz(width, height){
-    return Row(
+
+  Widget myScore(width, height){
+    return Column(
       children: [
         Container(
-          alignment: Alignment.center,
-          width: width * 0.36,
-          height: height * 0.1,
-          child: Text("나의 퀴즈 현황"),
-        ),
-        Container(
-            alignment: Alignment.center,
-            width: width * 0.36,
-            height: height * 0.1,
-            child: Column(
-                children: [
-                  currentQuizNum(width, height, "1324 / 6000"),
-                  currentQuizNum(width, height, "(2648pt / 12000pt)"),
-                ]
+          width: width,
+          height: height * 0.028,
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                width: width * 0.6,
+                height: height,
+                color: _style.getMainColor(),
+              ),
+              Container(
+                child: Row(
+                  children: [
+                    Container(
+                      width: width * 0.1,
+                      height: height,
+                      color: _style.getMainColor(),
+                      child: Image.asset('./images/info.png',width: 10,height: 10,),
+                    ),
+                    Container(
+                      width: width * 0.2,
+                      height: height,
+                      color: _style.getMainColor(),
+                      child: Text('문제 풀이'),
+                    ),
+                  ],
+                )
+              )
+            ],
+          ),
+          ),
+        Padding(
+          padding: EdgeInsets.only(top: 6),
+          child: Container(
+            margin: EdgeInsets.only(top: 1),
+            width: width * 0.7,
+            height: height * 0.09,
+              decoration: BoxDecoration(
+                color: _style.getBodyColor(),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.black, width: 0.5),
+              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: width * 0.3,
+                  child: Text('나의 점수'),
+                ),
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Text('8 / 10'),
+                      ),
+                      Container(
+                        child: Text('exp'),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             )
+          ),
         ),
+
       ],
     );
   }
-  //현재 정보(맞춘 문제, 경험치)
-  Widget currentQuizNum(width, height, num_info){
-    return Container(
-      alignment: Alignment.center,
-      height: height * 0.05,
-      child: Text(num_info),
-    );
-  }
+  Widget currentGrade(width, height){
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 60, vertical: 8),
+        child: Container(
+          margin: EdgeInsets.only(top: 1),
+          width: width * 0.7,
+          height: height * 0.09,
+          decoration: BoxDecoration(
+            color: _style.getBodyColor(),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black, width: 0.5),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                width: width * 0.3,
+                child: Text('현재 등급'),
+              ),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          child: Text('Lv 11'),
+                        ),
+                        LinearPercentIndicator(
+                          alignment: MainAxisAlignment.center,
+                          width: width * 0.28,
+                          lineHeight: height * 0.01,
+                          percent: 0.9,
+                          progressColor: _style.getPercentBarColor(),
+                        ),
+                      ],
+                    ),
+                  ],
 
+                )
+
+
+              ),
+            ],
+          ),
+    ));
+  }
 
   Widget bottomArea(width, height){
     return Container(
@@ -160,7 +234,9 @@ class _QuizResultState extends State<QuizResult> {
           ),
           InkWell(
             onTap: (){
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeWidget())
+              );
             },
             child: Container(
               alignment: Alignment.center,
@@ -171,7 +247,7 @@ class _QuizResultState extends State<QuizResult> {
                 borderRadius: BorderRadius.circular(9),
                 border: Border.all(color: Colors.black, width: 0.5),
               ),
-              child: Text("뒤로가기", style: _style.getTopicTextStyle()),
+              child: Text("홈으로", style: _style.getTopicTextStyle()),
             ),
           ),
         ],
@@ -182,12 +258,16 @@ class _QuizResultState extends State<QuizResult> {
   Widget bottom1(width, height){
     return Column(
         children: [
-          infoDetail(width, height, "한 퀴즈 당 총 10개의 문제가 나옵니다."),
+          Container(
+            width: width,
+            height: height * 0.05,
+            color: _style.getBodyColor(),
+          ),
           InkWell(
               onTap: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => QuizWidget2())
-                );
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => QuizWidget2())
+                // );
               },
               child: Column(
                   children: [
@@ -203,7 +283,7 @@ class _QuizResultState extends State<QuizResult> {
                             borderRadius: BorderRadius.circular(9),
                             border: Border.all(color: Colors.black, width: 0.5),
                           ),
-                          child: Text("퀴즈 시작", style: _style.getTopicTextStyle()),
+                          child: Text("다시 하기", style: _style.getTopicTextStyle()),
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -230,15 +310,6 @@ class _QuizResultState extends State<QuizResult> {
               )
           )
         ]
-    );
-  }
-
-  Widget infoDetail(width, height, info){
-    return Container(
-      alignment: Alignment.bottomRight,
-      width: width * 0.85,
-      height: height * 0.05,
-      child: Text(info),
     );
   }
 }
