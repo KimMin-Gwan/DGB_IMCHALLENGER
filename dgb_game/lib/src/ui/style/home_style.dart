@@ -40,11 +40,14 @@ class HomeScaffoldTheme extends DefaultTheme{
   Color _widgetBoxGrayColor = Color(0xff393939).withOpacity(0.6);
   ButtonStyle _simpleButton = ButtonStyle();
   TextStyle _levelTextStyle = TextStyle();
+  TextStyle _quizTextStyle = TextStyle();
   BoxDecoration _containerDecoration = BoxDecoration();
+  BoxDecoration _quizContainerDecoration = BoxDecoration();
   Color _percentBarColor = Color(0xffe96c6c);
   Color _settingColor = Color(0xff9f9299);
   Color _questColor = Color(0xffefc659);
   Color _eventColor = Color(0xff8cdb42);
+  Color _homeMainColor = Color(0xff83c8f0);
 
   TextStyle _autoExpTextStyle = TextStyle();
   TextStyle _autoExpHourTextStyle = TextStyle();
@@ -52,7 +55,19 @@ class HomeScaffoldTheme extends DefaultTheme{
 
   // 아래는 생성자
   HomeScaffoldTheme(){
-    // 여기서 정의해주면 됨
+      _quizContainerDecoration= BoxDecoration(
+      color: _homeMainColor,
+      borderRadius: BorderRadius.circular(8),
+      boxShadow: [
+      BoxShadow(
+        color: Colors.black26.withOpacity(0.4),
+        blurRadius: 0.5,
+        spreadRadius: 0.0,
+        offset: const Offset(0,4),
+        )
+      ]
+    );
+
     _simpleButton = ElevatedButton.styleFrom(
       backgroundColor: getMainGrayColor(),
       surfaceTintColor: getRealWhite(),
@@ -64,13 +79,24 @@ class HomeScaffoldTheme extends DefaultTheme{
     ); // ; 잊지말것
     _levelTextStyle = TextStyle(fontSize: 27, color: getRealBlack(),
         fontWeight: FontWeight.w900,
-        shadows: [Shadow(offset: Offset(2.0, 2.0), blurRadius: 4.0, color: getRealBlack())]);
+        shadows: [Shadow(offset: Offset(2.0, 2.0), blurRadius: 4.0, color: Colors.grey)]);
     _autoExpTextStyle = TextStyle(fontSize: 18, color: getRealWhite());
     _autoExpHourTextStyle = TextStyle(fontSize: 12, color: getRealWhite(), fontWeight: FontWeight.w400);
-
+    _quizTextStyle = TextStyle(fontSize: 27, color: getRealWhite(),
+        fontWeight: FontWeight.w900,
+        shadows: [Shadow(offset: Offset(1.0, 1.0), blurRadius: 4.0,
+            color: Colors.grey)]);
     _containerDecoration = BoxDecoration(
-      color: getWidgetBoxGrayColor(),
+      color: _homeMainColor,
       borderRadius: BorderRadius.circular(8),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black26.withOpacity(0.4),
+          blurRadius: 1.0,
+          spreadRadius: 0.0,
+          offset: const Offset(0,3),
+        )
+      ]
     );
 
 
@@ -81,13 +107,16 @@ class HomeScaffoldTheme extends DefaultTheme{
   Color getSettingColor() => _settingColor;
   Color getQuestColor() => _questColor;
   Color getEventColor() => _eventColor;
+  Color gethomeMainColor() => _homeMainColor;
 
   Color getWidgetBoxGrayColor() => _widgetBoxGrayColor;
   Color getPercentBarColor() => _percentBarColor;
   ButtonStyle getSimpleButtonStyle() => _simpleButton;
   TextStyle getlevelTextStyle() => _levelTextStyle;
+  TextStyle getQuizTextStyle() => _quizTextStyle;
   TextStyle getAutoExpTextStyle() => _autoExpTextStyle;
   TextStyle getAutoExpHourTextStyle() => _autoExpHourTextStyle;
   BoxDecoration getContainerDecoration() => _containerDecoration;
+  BoxDecoration getQuizContainerDecoration() => _quizContainerDecoration;
 }
 

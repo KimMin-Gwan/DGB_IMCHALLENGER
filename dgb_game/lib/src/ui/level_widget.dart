@@ -362,6 +362,7 @@ class _LevelWidgetState extends State<LevelWidget> {
                 percent:  0.9,
                 animation: true,
                 barRadius: Radius.circular(10),
+                backgroundColor: _style.getRealWhite(),
                 progressColor: _style.getExpBarColor(),
                 trailing: Text("90%"),
               )

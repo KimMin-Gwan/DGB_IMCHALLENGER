@@ -228,6 +228,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
             width: width * 0.9,
             lineHeight: height * 0.05,
             percent: 0.9,
+            backgroundColor: _style.getRealWhite(),
             progressColor: _style.getPercentBarColor(),
           )
         )
@@ -241,7 +242,22 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
       height: height * 0.7,  //전체 새로 길이중 60%
       width: width,
       //color: Colors.green,
-      // child : Container() // 단디가 등장할 부분을 그려야됨
+      child : Column(
+        //alignment: Alignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children:[
+          Container(
+            width: width * 0.8,
+            height : width * 0.8,
+            //color: Colors.blue,
+            child: Image.asset('images/dandi.png')
+          ),
+          Container(
+            width: width* 0.5,
+            height : height * 0.1,
+          ),
+        ]
+      ) // 단디가 등장할 부분을 그려야됨
     );
   }
 
@@ -269,23 +285,32 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
   }
 
   Widget quizButton(width, height){
-    return SizedBox(
-      width: width * 0.3,
-      height: height * 0.08,
-      child:ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: _style.getWidgetBoxGrayColor(),
-        ),
-        child: Container(
-          width: width * 0.2,
-          height: height * 0.05,
-          child:Text("QUIZ", style: _style.getlevelTextStyle()),
-        ),
-        onPressed: (){
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => QuizWidget1())
-          );
-        },
+    return InkWell(
+      onTap: (){
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => QuizWidget1()));
+      },
+      child: Container(
+        alignment: Alignment.centerLeft,
+        width: width * 0.3,
+        height: height * 0.08,
+        decoration: _style.getQuizContainerDecoration(),
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top:4, left: 6),
+              width: width * 0.28,
+              height: height * 0.05,
+              child:Text("QUIZ", style: _style.getQuizTextStyle()),
+            ),
+            Container(
+              margin: EdgeInsets.all(4),
+              width: width * 0.28,
+              height: 2,
+              color: _style.getRealWhite()
+            )
+          ],
+        )
       )
     );
   }
