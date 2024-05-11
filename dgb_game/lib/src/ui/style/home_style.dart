@@ -43,7 +43,8 @@ class HomeScaffoldTheme extends DefaultTheme{
   TextStyle _quizTextStyle = TextStyle();
   BoxDecoration _containerDecoration = BoxDecoration();
   BoxDecoration _quizContainerDecoration = BoxDecoration();
-  Color _percentBarColor = Color(0xffe96c6c);
+  BoxDecoration _heartContainerDecoration = BoxDecoration();
+  Color _percentBarColor = Color(0xffe57878);
   Color _settingColor = Color(0xff9f9299);
   Color _questColor = Color(0xffefc659);
   Color _eventColor = Color(0xff8cdb42);
@@ -55,6 +56,19 @@ class HomeScaffoldTheme extends DefaultTheme{
 
   // 아래는 생성자
   HomeScaffoldTheme(){
+    _heartContainerDecoration = BoxDecoration(
+        color: getMainContainerColor(),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26.withOpacity(0.4),
+            blurRadius: 0.5,
+            spreadRadius: 0.0,
+            offset: const Offset(0,2),
+          )
+        ]
+    );
+
       _quizContainerDecoration= BoxDecoration(
       color: _homeMainColor,
       borderRadius: BorderRadius.circular(8),
@@ -118,5 +132,6 @@ class HomeScaffoldTheme extends DefaultTheme{
   TextStyle getAutoExpHourTextStyle() => _autoExpHourTextStyle;
   BoxDecoration getContainerDecoration() => _containerDecoration;
   BoxDecoration getQuizContainerDecoration() => _quizContainerDecoration;
+  BoxDecoration getHeartContainerDecoration() => _heartContainerDecoration;
 }
 

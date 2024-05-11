@@ -294,25 +294,68 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
           child: Row(
             children: [
               Container(
-                width: width * 0.1,
+                width: width * 0.13,
                 height: height*0.05,
-                color: Colors.blue,
+                //color: Colors.blue,
               ),
               Container(
-                width: width * 0.4,
-                height: height*0.05,
-                color: Colors.purple,
+                width: width * 0.35,
+                height: height*0.028,
+                decoration: _style.getHeartContainerDecoration(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width :width * 0.2,
+                      height : height * 0.024,
+                      child: Text('x3      03:24'),
+                      //color: Colors.blue,
+                    ),
+                    Container(
+                      width :width * 0.02,
+                      height : height * 0.024,
+                      //color: Colors.blue,
+                    ),
+                    Container(
+                      width :width * 0.05,
+                      height : height * 0.024,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: _style.getPercentBarColor(),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            width :width * 0.03,
+                            height : width * 0.03,
+                            //color: Colors.green,
+                            child: Image.asset('images/add.png')
+                          )
+                        ],
+                      )
+                    ),
+                    Container(
+                      width :width * 0.01,
+                      height : height * 0.024,
+                      //color: Colors.blue,
+                    )
+                  ]
+                )
               ),
               Container(
-                width: width * 0.1,
+                width: width * 0.12,
                 height: height*0.05,
-                color: Colors.yellow,
+                //color: Colors.yellow,
               ),
             ],
           ),
         ),
         Container(
-          child: Text('heart image'),
+          margin: EdgeInsets.only(left: 38),
+          width: height * 0.05,
+          height : height * 0.05,
+          child: Image.asset('images/heart.png'),
         ),
       ],
     );
@@ -325,7 +368,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
             MaterialPageRoute(builder: (context) => QuizWidget1()));
       },
       child: Container(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.center,
         width: width * 0.3,
         height: height * 0.08,
         decoration: _style.getQuizContainerDecoration(),
@@ -335,7 +378,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
               margin: EdgeInsets.only(top:4, left: 6),
               width: width * 0.28,
               height: height * 0.05,
-              child:Text("QUIZ", style: _style.getQuizTextStyle()),
+              child:Text("   QUIZ", style: _style.getQuizTextStyle()),
             ),
             Container(
               margin: EdgeInsets.all(4),
