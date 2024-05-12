@@ -1,6 +1,7 @@
 //import 'dart:html';
 
 import 'package:dgb_game/src/ui/quiz/quiz_widget_result.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dgb_game/src/ui/style/home_style.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -53,6 +54,7 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
   var _style = HomeScaffoldTheme();  // 테마
   final maxWidth = 400.0;
   final maxHeight = 900.0;
+  bool interaction = false;
   @override
   Widget build(BuildContext context) {
     double queryWidth = MediaQuery.of(context).size.width;
@@ -246,21 +248,63 @@ class _HomeBodyWidgetState extends State<HomeBodyWidget>{
         //alignment: Alignment.center,
         mainAxisAlignment: MainAxisAlignment.end,
         children:[
-          Container(
-            width: width * 0.8,
-            height : width * 0.8,
-            //color: Colors.blue,
-            child: Image.asset('images/dandi.png')
+          chattingWidget(width, height),
+          InkWell(
+            child: Container(
+                width: width * 0.8,
+                height : width * 0.8,
+                //color: Colors.blue,
+                child: Image.asset('images/dandi.png')
+            ),
+            onTap:(){
+              setState(() {
+                if (interaction){
+                  interaction = false;
+                }
+                else{
+                  interaction = true;
+                }
+              });
+            }
           ),
           Container(
             width: width* 0.5,
             height : height * 0.1,
+            //color: Colors.orange,
           ),
         ]
       ) // 단디가 등장할 부분을 그려야됨
     );
   }
 
+  Widget chattingWidget(width, height){
+
+    double nowHeight = interaction ?  height : 0;
+
+    return Container(
+      alignment: Alignment.bottomLeft,
+      width: width,
+      height : nowHeight* 0.18,
+      //color: Colors.orange,
+      child: Stack(
+        alignment: Alignment.bottomLeft,
+        children: [
+          Container(
+            margin: EdgeInsets.only(left: 20),
+            width: width * 0.5,
+            height : nowHeight * 0.13,
+            child: Image.asset('images/chatting.png')
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 40),
+            width: width * 0.4,
+            height : nowHeight * 0.1,
+            child: Text('안녕? 오늘은 어떤 버그가 생겼니?', softWrap: true)
+          ),
+        ],
+      )
+    );
+  }
 
   Widget bottomWidget(width, height){
     return Container( //하단
