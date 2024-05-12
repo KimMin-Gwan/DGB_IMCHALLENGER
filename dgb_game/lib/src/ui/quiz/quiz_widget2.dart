@@ -44,7 +44,22 @@ class _QuizWidget2State extends State<QuizWidget2> {
     ['비트코인','대체불가능코인','다크코인','스테이블코인'], //4
     ['IMF','WB','WTO','G7'], //1
   ];
-  List<int> answer_number = [4,3,2,1,3,4,2,4,4,1];
+
+  List<String> infoList = [
+    '',
+  '분산 투자의 주된 목적은 리스크를 최소화하고 수익을 안정화하는 것이다. 여러 자산에 투자함으로써 한 가지 자산의 부정적인 영향을 줄이고, 포트폴리오 전체의 안정성을 높일 수 있다.',
+  "국가가 과도한 빚 부담을 이겨내지 못하고 상환능력을 잃을 때 일어날 수 있는 상황은 'default'이다.",
+  "우리나라의 '이것'은 국채 발행액이다. 이 수치가 높아지면 국가의 재정건전성에 대한 우려가 커질 수 있다.",
+  "대기업과 고소득자의 성장이 중소기업과 서민으로 이어져 경제 전체에 도움이 되는 이론은 '낙수효과 이론'이다.",
+  "한국은행이 연 8회 개최하는 금융통화위원회에서 결정하는 것은 '기준금리'이다.",
+  "달러화가 대표적 '기축통화'로 통한다.",
+  "미국 경제성장률이 둔화하고 물가상승률이 고공행진할 때 우려되는 것은 '스태그플레이션'이다.",
+  "부가가치세와 같이 실제 부담하는 주체와 납부하는 주체가 다른 세금을 의미하는 말은 '간접세'이다.",
+  "가치를 법정화폐에 연동하여 안정적인 가격을 유지하는 암호화폐는 '스테이블코인'이다.",
+  "1997년 외환위기 당시 한국이 자금을 지원받고 구조조정을 진행한 국제기구는 '국제통화기금(IMF)'이다."
+  ];
+
+  List<int> answer_number = [0,4,3,2,1,3,4,2,4,4,1];
   int current_block = -1;
   int ans_num = 0;
   int answer = -1;
@@ -74,7 +89,7 @@ class _QuizWidget2State extends State<QuizWidget2> {
   String fail = '틀렸어요!';
   String res = '';
   void isCorrect(){
-    if(current_block == answer_number[index])
+    if(current_block == answer_number[index+1])
       {
           flag = true;
           imgg = path;
@@ -149,7 +164,7 @@ class _QuizWidget2State extends State<QuizWidget2> {
                             Container(
                               margin: EdgeInsets.only(top: 20),
                               width: queryWidth,
-                              height: queryHeight * 0.5,
+                              height: queryHeight * 0.3,
                               child: Image.asset(imgg),
                             ),
                             Container(
@@ -157,6 +172,27 @@ class _QuizWidget2State extends State<QuizWidget2> {
                               width: queryWidth,
                               height: queryHeight * 0.1,
                               child: Text('$res', style: TextStyle(fontSize: 36, color: Colors.white, fontWeight: FontWeight.w800),),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 40),
+                              width: queryWidth,
+                              height: queryHeight * 0.34,
+                              decoration: BoxDecoration(
+                                color: Colors.black54,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+
+                              child: Column(
+                                children: [
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: queryWidth,
+                                    height: queryHeight * 0.07,
+                                    child: Text('문제 해설',style: _style.getInfoTitleStyle(),),
+                                  ),
+                                  infoAnswer(queryWidth, queryHeight, answer_number[index],infoList[index]),
+                                ],
+                              ),
                             )
                           ],
                         )
@@ -166,6 +202,25 @@ class _QuizWidget2State extends State<QuizWidget2> {
           ),
         ],
       )
+    );
+  }
+
+  Widget infoAnswer(width, height,answer, info){
+    return Column(
+      children: [
+        Container(
+          width: width,
+          height: height * 0.04,
+          margin: EdgeInsets.only(left: 10),
+          child: Text('정답: $answer',style: _style.getAnswerInfoStyle(),),
+        ),
+        Container(
+          width: width,
+          height: height*0.23,
+          margin: EdgeInsets.only(left: 10),
+          child: Text('풀이: $info',style: _style.getAnswerInfoStyle()),
+        )
+      ],
     );
   }
 

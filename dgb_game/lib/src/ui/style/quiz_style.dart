@@ -16,6 +16,8 @@ class QuizTheme extends DefaultTheme{
   TextStyle _infoTextStyle = TextStyle();
   TextStyle _topicTextStyle = TextStyle();
   TextStyle _levelTextStyle = TextStyle();
+  TextStyle _answerInfoStyle = TextStyle();
+  TextStyle _infoTitleStyle = TextStyle();
 
   QuizTheme(){
     _titleTextStyle = TextStyle(fontSize:40, color: getRealBlack(), fontWeight: FontWeight.w600);
@@ -26,13 +28,16 @@ class QuizTheme extends DefaultTheme{
     _levelTextStyle = TextStyle(fontSize: 27, color: getRealBlack(),
         fontWeight: FontWeight.w900,
         shadows: [Shadow(offset: Offset(2.0, 2.0), blurRadius: 4.0, color: getRealBlack())]);
-
+    _answerInfoStyle = TextStyle(fontSize: 14, color: getRealWhite(), fontWeight: FontWeight.w200);
+    _infoTitleStyle = TextStyle(fontSize: 20, color: getRealWhite(), fontWeight: FontWeight.w200);
   }
   Color getExampleColor() => _exampleColor;
   Color getMainColor() => _mainColor;
   Color getBodyColor() => _bodyColor;
   Color getStartColor() => _startColor;
   Color getPercentBarColor() => _percentBarColor;
+  TextStyle getAnswerInfoStyle() => _answerInfoStyle;
+  TextStyle getInfoTitleStyle() => _infoTitleStyle;
   TextStyle getTitleTextStyle() => _titleTextStyle;
   TextStyle getExampleTextStyle() => _exampleTextStyle;
   TextStyle getQuestTextStyle() => _questTextStyle;
