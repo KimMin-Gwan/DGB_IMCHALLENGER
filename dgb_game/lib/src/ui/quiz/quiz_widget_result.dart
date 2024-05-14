@@ -113,6 +113,7 @@ class _QuizResultState extends State<QuizResult> {
                 height: height,
                 color: _style.getMainColor(),
               ),
+              /*
               Container(
                 child: Row(
                   children: [
@@ -131,6 +132,7 @@ class _QuizResultState extends State<QuizResult> {
                   ],
                 )
               )
+               */
             ],
           ),
           ),
